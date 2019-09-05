@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ValutakalkulatorController">
+   <children>
+      <Button layoutX="69.0" layoutY="129.0" mnemonicParsing="false" onAction="#calculate" text="Beregn" />
+      <Label layoutX="69.0" layoutY="34.0" text="Beregning av valuta">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="NOKOutpArea" layoutX="69.0" layoutY="184.0" prefHeight="104.0" prefWidth="149.0" />
+      <TextField fx:id="NOKInpField" layoutX="69.0" layoutY="79.0" promptText="NOK" />
+      <TextField fx:id="dollarInpField" layoutX="264.0" layoutY="79.0" promptText="Dollar" />
+      <TextArea fx:id="dollarOutpArea" layoutX="264.0" layoutY="184.0" prefHeight="104.0" prefWidth="149.0" />
+   </children>
+</AnchorPane>

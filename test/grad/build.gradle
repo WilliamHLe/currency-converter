@@ -1,0 +1,27 @@
+plugins {
+    id 'groovy'
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.8'
+}
+
+group '12'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+javafx {
+    version = "12.0.2"
+    modules = [ 'javafx.controls' ]
+}
+
+mainClassName = 'App'
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.3.11'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
