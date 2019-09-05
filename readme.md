@@ -7,3 +7,4 @@ Good luck!
 Group members;
 
 *  Malin Holte
+*  Sivert Hognes
