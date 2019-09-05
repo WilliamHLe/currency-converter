@@ -10,3 +10,5 @@ Group members;
 *  Sivert Hognes
 *  William H. Le
 *  Stefan Fongen
+
+Mappen som utgjør kodingsprosjektet heter "test" og inni der ligger alle filene til innlevering 1.
