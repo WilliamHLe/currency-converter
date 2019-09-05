@@ -8,3 +8,5 @@ Group members;
 
 *  Malin Holte
 *  Sivert Hognes
+*  William H. Le
+*  Stefan Fongen
