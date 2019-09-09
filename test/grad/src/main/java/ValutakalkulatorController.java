@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -13,25 +14,23 @@ import javafx.scene.control.TextField;
 public class ValutakalkulatorController {
 	
 	@FXML private TextField NOKInpField, dollarInpField;
-	@FXML private TextArea NOKOutpArea, dollarOutpArea;
 	@FXML private ComboBox<Valuta> combOld, combNew;
+	@FXML private Label errorTxt;
 	
-	private Valuta ValutaNOK;
-	private Valuta ValutaUSD;
-	private String button;
 	private AppIO io = new AppIO();
 	
 	
         Valuta NOK = new Valuta("NOK", "NOK");
         Valuta USD = new Valuta("USD", "USD");
         Valuta EURO = new Valuta("EURO", "EURO");
+        double innNOK;
+        double result;
  
         ObservableList<Valuta> list //
                 = FXCollections.observableArrayList(NOK, USD, EURO);
 	
 	@FXML
 	public void initialize() {
-		Valuta Valuta = new Valuta();
 		combOld.setItems(list);
 		combNew.setItems(list);
 		dollarInpField.setText("0");
@@ -40,93 +39,117 @@ public class ValutakalkulatorController {
 	
 	@FXML
 	public void calculate() {
-		String result = "";
-		
+		errorTxt.setText("");
 		try {
+			double innNOK = Double.valueOf(NOKInpField.getText());
 			if(combOld.getValue().equals(NOK) ) {
+				NOK.setNOK(innNOK);
 				if(combNew.getValue().equals(USD)) {
-					double innNOK = Double.valueOf(NOKInpField.getText());
-					
-					result = "" + Valuta.calculateNOKToDollar(innNOK);
-					dollarInpField.setText(result);
+					result = Valuta.calculateNOKToDollar(innNOK);
+					dollarInpField.setText("" + result);
+					USD.setNOK(result);
 				}
 				if(combNew.getValue().equals(EURO)) {
-					double innNOK = Double.valueOf(NOKInpField.getText());
-					
-					result = "" + Valuta.calculateNOKToEuro(innNOK);
-					dollarInpField.setText(result);
+					result = Valuta.calculateNOKToEuro(innNOK);
+					dollarInpField.setText("" + result);
+					EURO.setNOK(result);
 				}
 			}
 			else if(combOld.getValue().equals(USD) ) {
+				USD.setNOK(innNOK);
 				if(combNew.getValue().equals(NOK)) {
-					double innNOK = Double.valueOf(NOKInpField.getText());
-					
-					result = "" + Valuta.calculateDollarToNOK(innNOK);
-					dollarInpField.setText(result);
+					result = Valuta.calculateDollarToNOK(innNOK);
+					dollarInpField.setText("" + result);
+					NOK.setNOK(result);
 				}
 				if(combNew.getValue().equals(EURO)) {
-					double innNOK = Double.valueOf(NOKInpField.getText());
-					
-					result = "" + Valuta.calculateDollarToEuro(innNOK);
-					dollarInpField.setText(result);
+					result = Valuta.calculateDollarToEuro(innNOK);
+					dollarInpField.setText("" + result);
+					EURO.setNOK(result);
 				}
 			}
 			else if(combOld.getValue().equals(EURO) ) {
+				EURO.setNOK(innNOK);
 				if(combNew.getValue().equals(NOK)) {
-					double innNOK = Double.valueOf(NOKInpField.getText());
-					
-					result = "" + Valuta.calculateEUROToNOK(innNOK);
-					dollarInpField.setText(result);
+					result = Valuta.calculateEUROToNOK(innNOK);
+					dollarInpField.setText("" + result);
+					NOK.setNOK(result);
 				}
 				if(combNew.getValue().equals(USD)) {
-					double innNOK = Double.valueOf(NOKInpField.getText());
-					
-					result = "" + Valuta.calculateEUROToUSD(innNOK);
-					dollarInpField.setText(result);
+					result = Valuta.calculateEUROToUSD(innNOK);
+					dollarInpField.setText("" + result);
+					USD.setNOK(result);
 				}
 			
 			}
+				
 		}
 		catch(Exception e){
-			
+			errorTxt.setText(errorTxt.getText() + "Sørg for å ha valgt to gyldige og forskjellige valuta");
 		}
 			
 	}
 	
 	
-	/*public void save() {
+	public void save() {
 		try {
-			System.out.println(ValutaNOK.getNOK());
-			io.save("valuta.txt", ValutaNOK, ValutaUSD);
+			if(combOld.getValue().equals(NOK) ) {
+				
+				if(combNew.getValue().equals(USD)) {
+					io.save("valuta.txt", NOK, USD, NOK.getName(), USD.getName());
+				}
+				if(combNew.getValue().equals(EURO)) {
+					io.save("valuta.txt", NOK, EURO, NOK.getName(), EURO.getName());
+				}
+			}
+			else if(combOld.getValue().equals(USD) ) {
+				
+				if(combNew.getValue().equals(NOK)) {
+					io.save("valuta.txt", USD, NOK, USD.getName(), NOK.getName());
+				}
+				if(combNew.getValue().equals(EURO)) {
+					io.save("valuta.txt", USD, EURO, USD.getName(), EURO.getName());
+				}
+			}
+			else if(combOld.getValue().equals(EURO) ) {
+				
+				if(combNew.getValue().equals(NOK)) {
+					io.save("valuta.txt", EURO, NOK, EURO.getName(), NOK.getName());
+				}
+				if(combNew.getValue().equals(USD)) {
+					io.save("valuta.txt", EURO, USD, EURO.getName(), USD.getName());
+				}
+			
+			}
+			//io.save("valuta.txt", , );
 		} catch (IOException e) {
 			e.printStackTrace();
-			NOKOutpArea.setText("Noe gikk galt ved skriving til fil");
-			dollarOutpArea.setText("Noe gikk galt ved skriving til fil");
+			errorTxt.setText("Noe gikk galt ved skriving til fil");
 		}
-	}*/
+	}
 	
 	
 	
-	/*public void load() {
+	public void load() {
 		try {
 			ValutaObjectLoader loader = io.load("valuta.txt");
 			
 			Valuta usd = loader.usd;
 			Valuta nok = loader.nok;
 			
-			String stringNOK = "" + nok.getNOK() + "\n"+ nok.calculateNOKToDollar(nok.getNOK()) + "\n" + nok.calculateNOKToEuro(nok.getNOK());
-			NOKOutpArea.setText(stringNOK);
+			String stringNOK = "" + nok.getNOK() + " " + nok.getName();
+			//errorTxt.setText(stringNOK);
 			
-			String stringUSD = "" + usd.getUSD() + "\n" + usd.calculateDollarToNOK(usd.getUSD()) + "\n" + usd.calculateDollarToEuro(usd.getUSD());
-			dollarOutpArea.setText(stringUSD);
+			String stringUSD = "" + usd.getNOK() + " " + usd.getName();
+			errorTxt.setText(stringNOK + "\n" + stringUSD);
 		
 			
 			
 		} catch (IOException e){
 			e.printStackTrace();
-			NOKOutpArea.setText("Filnavnet finnes ikke");
+			errorTxt.setText("Filnavnet finnes ikke");
 		}
-	}*/
+	}
 	
 	
 	
