@@ -4,4 +4,4 @@ Når han trykker på knappen så vil han få opp den nye valutaen i høyre felt.
 
 Slik ser kalkulatoren ut:
 
-![alt text](https://scontent-arn2-1.xx.fbcdn.net/v/t1.15752-9/70390539_898086800558174_6535145443578347520_n.png?_nc_cat=109&_nc_oc=AQm86QP0h8FSZSKuEVZzHrDFU0Ks7a604xwIxYkSME9H_LYQx0A_3KZx-YPTgkLIZAtIOyXrV9GkbJzkljSGTH-g&_nc_ht=scontent-arn2-1.xx&oh=58bd5ad0eca6594f1056db36d0fc54df&oe=5E08F45B)
+![alt text](https://scontent-arn2-1.xx.fbcdn.net/v/t1.15752-9/69760706_2364887796930332_4509731135567167488_n.png?_nc_cat=101&_nc_oc=AQmT-xczz9DJjRYcKGX-0lvvJkTdnCGlL1ANvyqG2v52xDtCu1X1szSOlfoPmNkbjSVni2GWHii6CjL3TnhGm8zH&_nc_ht=scontent-arn2-1.xx&oh=fbbcf4fca08e5ffd5273c0c8c4887880&oe=5E072927)
