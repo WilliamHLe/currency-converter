@@ -1,4 +1,4 @@
-/*package app;
+package app;
 
 import static org.junit.Assert.*;
 
@@ -9,15 +9,15 @@ import org.junit.Test;
 
 public class AppTest {
 	
-	ValutaUSD USD;
-	ValutaNOK NOK;
+	Valuta USD;
+	Valuta NOK;
 	AppIO lagre = new AppIO();
 	
 	
 	@Before
 	public void setUp() {
-		USD = new ValutaUSD();
-		NOK = new ValutaNOK();
+		USD = new Valuta();
+		NOK = new Valuta();
 		
 	}
 
@@ -28,12 +28,12 @@ public class AppTest {
 	
 	@Test
 	public void testCalculateDollarToNOK() {
-		assertEquals(86.8, USD.calculateDollarToNOK(10), 0.5);
+		assertEquals(86.8, Valuta.calculateDollarToNOK(10), 0.5);
 	}
 	
 	@Test
 	public void testCalculateDollarToEuro() {
-		assertEquals(8.8, USD.calculateDollarToEuro(10), 0.5);
+		assertEquals(8.8, Valuta.calculateDollarToEuro(10), 0.5);
 	}
 	
 	@Test 
@@ -41,7 +41,7 @@ public class AppTest {
 		NOK.setNOK(20);
 		USD.setUSD(30);
 		try {
-			lagre.save("valuta.txt", NOK, USD);
+			lagre.save("valuta.txt", NOK, USD, NOK.getName(), USD.getName());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -61,4 +61,3 @@ public class AppTest {
 	
 
 }
-*/
