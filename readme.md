@@ -12,4 +12,4 @@ Group members;
 *  Stefan Fongen
 
 Mappen som utgjør kodingsprosjektet heter "test", "grad", "src", "main", "java/ValutaKalk" og inni der ligger alle filene til innlevering 1.
-"App.java" er filen som skal kjøres.
+"App.java" er filen som skal kjøres!
