@@ -6,8 +6,6 @@ public class Valutakalkulator {
 	private double outpDollar;
 	private double outpNOK;
 	private double outpEuro;
-
-	private String button;
 	
 	
 	public double getInpNOK() {
