@@ -3,6 +3,7 @@ package valutaKalk;
 public class Valutakalkulator {
 	private double inpNOK, inpDollar;
 	
+
 	private double outpDollar;
 	private double outpNOK;
 	private double outpEuro;

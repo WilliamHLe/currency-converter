@@ -27,7 +27,7 @@ test {
     }
 }
 
-mainClassName = 'App'
+mainClassName = 'valutaKalk.App'
 
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.3.11'
