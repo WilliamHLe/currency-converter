@@ -17,7 +17,14 @@ repositories {
 
 javafx {
     version = "12.0.2"
-    modules = [ 'javafx.controls' ]
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+test {
+    // don't run UI test on server (that cannot run javafx)
+    if (project.hasProperty('ci') && "$ci" == 'gitlab') {
+        exclude 'simpleex/ui/*'
+    }
 }
 
 mainClassName = 'App'
@@ -25,4 +32,5 @@ mainClassName = 'App'
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.3.11'
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    testImplementation 'junit:junit:4.12'
 }

@@ -1,4 +1,4 @@
-package app;
+package valutaKalk;
 
 public class Valutakalkulator {
 	private double inpNOK, inpDollar;

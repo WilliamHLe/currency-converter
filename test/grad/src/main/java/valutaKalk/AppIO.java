@@ -1,4 +1,4 @@
-package app;
+package valutaKalk;
 
 import java.io.BufferedReader;
 import java.io.File;

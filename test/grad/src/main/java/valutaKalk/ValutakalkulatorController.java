@@ -1,4 +1,4 @@
-package app;
+package valutaKalk;
 
 import java.io.IOException;
 
@@ -85,7 +85,7 @@ public class ValutakalkulatorController {
 				
 		}
 		catch(Exception e){
-			errorTxt.setText(errorTxt.getText() + "Sørg for å ha valgt to gyldige og forskjellige valuta");
+			errorTxt.setText(errorTxt.getText() + "Sï¿½rg for ï¿½ ha valgt to gyldige og forskjellige valuta");
 		}
 			
 	}

@@ -1,4 +1,4 @@
-package app;
+package valutaKalk;
 
 public class Valuta {
 	
@@ -43,7 +43,7 @@ public class Valuta {
 	
 	public void setNOK(double NOK) {
 		if(NOK < 0) {
-			throw new IllegalArgumentException("Beløpet må være mer enn 0.");
+			throw new IllegalArgumentException("Belï¿½pet mï¿½ vï¿½re mer enn 0.");
 		}
 		this.NOK = NOK;
 	}
@@ -67,7 +67,7 @@ public class Valuta {
 	
 	public void setUSD(double USD) {
 		if(USD < 0) {
-			throw new IllegalArgumentException("Beløpet må være mer enn 0.");
+			throw new IllegalArgumentException("Belï¿½pet mï¿½ vï¿½re mer enn 0.");
 		}
 		this.USD = USD;
 	}
@@ -91,7 +91,7 @@ public class Valuta {
 	
 	public void setEURO(double EURO) {
 		if(EURO < 0) {
-			throw new IllegalArgumentException("Beløpet må være mer enn 0.");
+			throw new IllegalArgumentException("Belï¿½pet mï¿½ vï¿½re mer enn 0.");
 		}
 	}
 

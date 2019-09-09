@@ -1,4 +1,4 @@
-package app;
+package valutaKalk;
 
 import static org.junit.Assert.*;
 
