@@ -90,14 +90,13 @@ public class Valuta {
 	
 	
 	public void setEURO(double EURO) {
-		if(USD < 0) {
+		if(EURO < 0) {
 			throw new IllegalArgumentException("Beløpet må være mer enn 0.");
 		}
-		this.USD = USD;
 	}
 
 	public double getEURO() {
-		return USD;
+		return EURO;
 	}
 	
 	public static double calculateEUROToNOK(double inpEURO) {
