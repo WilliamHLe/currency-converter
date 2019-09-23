@@ -4,6 +4,10 @@
     <bytecodeTargetLevel>
       <module name="12.grad.main" target="1.8" />
       <module name="12.grad.test" target="1.8" />
+      <module name="gr1921.core.main" target="1.8" />
+      <module name="gr1921.core.test" target="1.8" />
+      <module name="gr1921.fxui.main" target="1.8" />
+      <module name="gr1921.fxui.test" target="1.8" />
       <module name="grad.main" target="1.8" />
       <module name="grad.test" target="1.8" />
     </bytecodeTargetLevel>
