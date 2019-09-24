@@ -1,4 +1,4 @@
-package valutaKalk;
+package valutaKalk.fxui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

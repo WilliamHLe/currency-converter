@@ -1,4 +1,4 @@
-package valutaKalk;
+package valutaKalk.fxui;
 
 import java.io.IOException;
 
@@ -7,7 +7,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 

@@ -1,4 +1,4 @@
-package valutaKalk;
+package valutaKalk.fxui;
 
 public class Valutakalkulator {
 	private double inpNOK, inpDollar;

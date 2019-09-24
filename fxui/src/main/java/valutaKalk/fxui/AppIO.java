@@ -1,4 +1,4 @@
-package valutaKalk;
+package valutaKalk.fxui;
 
 import java.io.BufferedReader;
 import java.io.File;

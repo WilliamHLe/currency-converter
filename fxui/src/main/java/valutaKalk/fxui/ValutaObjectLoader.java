@@ -1,4 +1,4 @@
-package valutaKalk;
+package valutaKalk.fxui;
 
 public class ValutaObjectLoader {
 	public Valuta nok;
