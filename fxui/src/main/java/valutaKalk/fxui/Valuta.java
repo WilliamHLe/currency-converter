@@ -3,37 +3,27 @@ package valutaKalk.fxui;
 public class Valuta {
 	
 	
-	public String code;
-    private String name;
+    private String valutaType;
  
     public Valuta() {
  
     }
  
-    public Valuta(String code, String name) {
-        this.code = code;
-        this.name = name;
-    }
- 
-    public String getCode() {
-        return code;
-    }
- 
-    public void setCode(String code) {
-        this.code = code;
+    public Valuta(String name) {
+        this.valutaType = name;
     }
  
     public String getName() {
-        return name;
+        return valutaType;
     }
  
     public void setName(String name) {
-        this.name = name;
+        this.valutaType = name;
     }
     
     @Override
     public String toString()  {
-        return this.name;
+        return this.valutaType;
     }
 	
 	private double NOK;
@@ -43,7 +33,7 @@ public class Valuta {
 	
 	public void setNOK(double NOK) {
 		if(NOK < 0) {
-			throw new IllegalArgumentException("Bel�pet m� v�re mer enn 0.");
+			throw new IllegalArgumentException("Beløpet må være mer enn 0.");
 		}
 		this.NOK = NOK;
 	}
@@ -67,7 +57,7 @@ public class Valuta {
 	
 	public void setUSD(double USD) {
 		if(USD < 0) {
-			throw new IllegalArgumentException("Bel�pet m� v�re mer enn 0.");
+			throw new IllegalArgumentException("Beløpet må være mer enn 0.");
 		}
 		this.USD = USD;
 	}
@@ -91,7 +81,7 @@ public class Valuta {
 	
 	public void setEURO(double EURO) {
 		if(EURO < 0) {
-			throw new IllegalArgumentException("Bel�pet m� v�re mer enn 0.");
+			throw new IllegalArgumentException("Beløpet må være mer enn 0.");
 		}
 	}
 
