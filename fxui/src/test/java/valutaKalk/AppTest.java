@@ -6,8 +6,6 @@ import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
-import valutaKalk.fxui.AppIO;
-import valutaKalk.fxui.Valuta;
 
 public class AppTest {
 	
