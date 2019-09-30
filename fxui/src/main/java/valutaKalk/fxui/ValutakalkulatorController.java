@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 
@@ -19,11 +20,13 @@ public class ValutakalkulatorController {
 	private AppIO io = new AppIO();
 	
 	
-        Valuta NOK = new Valuta("NOK", "NOK");
-        Valuta USD = new Valuta("USD", "USD");
-        Valuta EURO = new Valuta("EURO", "EURO");
-        double innNOK;
-        double result;
+        Valuta NOK = new Valuta("NOK");
+        Valuta USD = new Valuta("USD");
+        Valuta EURO = new Valuta("EURO");
+        double utValuta;
+        double innValuta;
+        double savedInn;
+        double savedUt;
  
         ObservableList<Valuta> list //
                 = FXCollections.observableArrayList(NOK, USD, EURO);
@@ -40,51 +43,51 @@ public class ValutakalkulatorController {
 	public void calculate() {
 		errorTxt.setText("");
 		try {
-			double innNOK = Double.valueOf(NOKInpField.getText());
+			double innValuta = Double.valueOf(NOKInpField.getText());
 			if(combOld.getValue().equals(NOK) ) {
-				NOK.setNOK(innNOK);
+				NOK.setNOK(innValuta);
 				if(combNew.getValue().equals(USD)) {
-					result = Valuta.calculateNOKToDollar(innNOK);
-					dollarInpField.setText("" + result);
-					USD.setNOK(result);
+					utValuta = Valuta.calculateNOKToDollar(innValuta);
+					dollarInpField.setText("" + utValuta);
+					USD.setUSD(utValuta);
 				}
 				if(combNew.getValue().equals(EURO)) {
-					result = Valuta.calculateNOKToEuro(innNOK);
-					dollarInpField.setText("" + result);
-					EURO.setNOK(result);
+					utValuta = Valuta.calculateNOKToEuro(innValuta);
+					dollarInpField.setText("" + utValuta);
+					EURO.setEURO(utValuta);
 				}
 			}
 			else if(combOld.getValue().equals(USD) ) {
-				USD.setNOK(innNOK);
+				USD.setUSD(innValuta);
 				if(combNew.getValue().equals(NOK)) {
-					result = Valuta.calculateDollarToNOK(innNOK);
-					dollarInpField.setText("" + result);
-					NOK.setNOK(result);
+					utValuta = Valuta.calculateDollarToNOK(innValuta);
+					dollarInpField.setText("" + utValuta);
+					NOK.setNOK(utValuta);
 				}
 				if(combNew.getValue().equals(EURO)) {
-					result = Valuta.calculateDollarToEuro(innNOK);
-					dollarInpField.setText("" + result);
-					EURO.setNOK(result);
+					utValuta = Valuta.calculateDollarToEuro(innValuta);
+					dollarInpField.setText("" + utValuta);
+					EURO.setEURO(utValuta);
 				}
 			}
 			else if(combOld.getValue().equals(EURO) ) {
-				EURO.setNOK(innNOK);
+				EURO.setEURO(innValuta);
 				if(combNew.getValue().equals(NOK)) {
-					result = Valuta.calculateEUROToNOK(innNOK);
-					dollarInpField.setText("" + result);
-					NOK.setNOK(result);
+					utValuta = Valuta.calculateEUROToNOK(innValuta);
+					dollarInpField.setText("" + utValuta);
+					NOK.setNOK(utValuta);
 				}
 				if(combNew.getValue().equals(USD)) {
-					result = Valuta.calculateEUROToUSD(innNOK);
-					dollarInpField.setText("" + result);
-					USD.setNOK(result);
+					utValuta = Valuta.calculateEUROToUSD(innValuta);
+					dollarInpField.setText("" + utValuta);
+					USD.setUSD(utValuta);
 				}
 			
 			}
 				
 		}
 		catch(Exception e){
-			errorTxt.setText(errorTxt.getText() + "S�rg for � ha valgt to gyldige og forskjellige valuta");
+			errorTxt.setText(errorTxt.getText() + "Sørg for å ha valgt to gyldige og forskjellige valuta");
 		}
 			
 	}
@@ -92,6 +95,8 @@ public class ValutakalkulatorController {
 	
 	public void save() {
 		try {
+			savedInn = Double.valueOf(NOKInpField.getText());
+			savedUt = utValuta;
 			if(combOld.getValue().equals(NOK) ) {
 				
 				if(combNew.getValue().equals(USD)) {
@@ -136,11 +141,11 @@ public class ValutakalkulatorController {
 			Valuta usd = loader.usd;
 			Valuta nok = loader.nok;
 			
-			String stringNOK = "" + nok.getNOK() + " " + nok.getName();
+			String stringInn = "" + savedInn + " " + nok.getName();
 			//errorTxt.setText(stringNOK);
 			
-			String stringUSD = "" + usd.getNOK() + " " + usd.getName();
-			errorTxt.setText(stringNOK + "\n" + stringUSD);
+			String stringUt = "" + savedUt + " " + usd.getName();
+			errorTxt.setText(stringInn + "\n" + stringUt);
 		
 			
 			
