@@ -49,7 +49,7 @@ public class AppTest {
 	
 		
 		try {
-			Double load = lagre.load("valuta.txt").nok.getNOK();
+			Double load = lagre.load("valuta.txt").gammel.getNOK();
 			assertTrue(load == 20.0);
 			
 		} catch (IOException e) {
