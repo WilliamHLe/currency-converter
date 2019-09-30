@@ -40,32 +40,32 @@ public class AppIO implements AppIOInterface {
 		Scanner scanner = new Scanner(new File(filename));
 
 		String valuta[] = scanner.nextLine().split(" ");
-		String nok_string = valuta[0];
-		String usd_string = valuta[1];
-		String nok_name = valuta[2];
-		String usd_name = valuta[3];
+		String fraValuta_string = valuta[0];
+		String tilValuta_string = valuta[1];
+		String fraValuta_name = valuta[2];
+		String tilValuta_name = valuta[3];
 
 	
 
-		double nok_verdi = Double.parseDouble(nok_string);
-		double usd_verdi = Double.parseDouble(usd_string);
+		double fraValuta_verdi = Double.parseDouble(fraValuta_string);
+		double tilValuta_verdi = Double.parseDouble(tilValuta_string);
 
 	
 
 		scanner.close();
 
 		
-		 Valuta nok = new Valuta();
-		 nok.setNOK(nok_verdi); 
-		 nok.setName(nok_name);
+		 Valuta gammel = new Valuta();
+		 gammel.setNOK(fraValuta_verdi); 
+		 gammel.setName(fraValuta_name);
 		 
-		 Valuta usd = new Valuta();
-		 usd.setNOK(usd_verdi);
-		 usd.setName(usd_name);
+		 Valuta ny = new Valuta();
+		 ny.setNOK(tilValuta_verdi);
+		 ny.setName(tilValuta_name);
 		  
 		 ValutaObjectLoader loader = new ValutaObjectLoader();
-		 loader.usd = usd;
-		 loader.nok = nok;
+		 loader.ny = ny;
+		 loader.gammel = gammel;
 		 
 		 return loader;
 		 
