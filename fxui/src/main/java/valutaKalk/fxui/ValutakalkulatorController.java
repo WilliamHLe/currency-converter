@@ -138,13 +138,13 @@ public class ValutakalkulatorController {
 		try {
 			ValutaObjectLoader loader = io.load("valuta.txt");
 			
-			Valuta usd = loader.usd;
-			Valuta nok = loader.nok;
+			Valuta ny = loader.ny;
+			Valuta gammel = loader.gammel;
 			
-			String stringInn = "" + savedInn + " " + nok.getName();
+			String stringInn = "" + savedInn + " " + gammel.getName();
 			//errorTxt.setText(stringNOK);
 			
-			String stringUt = "" + savedUt + " " + usd.getName();
+			String stringUt = "" + savedUt + " " + ny.getName();
 			errorTxt.setText(stringInn + "\n" + stringUt);
 		
 			
