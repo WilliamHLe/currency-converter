@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation project(':fxui')
+    implementation project(':core')
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile "com.fasterxml.jackson.core:jackson-core:2.9.8"

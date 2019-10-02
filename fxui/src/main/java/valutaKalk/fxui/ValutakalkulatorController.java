@@ -9,17 +9,20 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import valutaKalk.core.Valuta;
+import valutaKalk.core.AppIO;
+import valutaKalk.core.ValutaObjectLoader;
 
 
 public class ValutakalkulatorController {
-	
+
 	@FXML private TextField NOKInpField, dollarInpField;
 	@FXML private ComboBox<Valuta> combOld, combNew;
 	@FXML private Label errorTxt;
-	
+
 	private AppIO io = new AppIO();
-	
-	
+
+
         Valuta NOK = new Valuta("NOK");
         Valuta USD = new Valuta("USD");
         Valuta EURO = new Valuta("EURO");
@@ -27,18 +30,18 @@ public class ValutakalkulatorController {
         double innValuta;
         double savedInn;
         double savedUt;
- 
+
         ObservableList<Valuta> list //
                 = FXCollections.observableArrayList(NOK, USD, EURO);
-	
+
 	@FXML
 	public void initialize() {
 		combOld.setItems(list);
 		combNew.setItems(list);
 		dollarInpField.setText("0");
-		
+
 	}
-	
+
 	@FXML
 	public void calculate() {
 		errorTxt.setText("");
@@ -82,23 +85,23 @@ public class ValutakalkulatorController {
 					dollarInpField.setText("" + utValuta);
 					USD.setUSD(utValuta);
 				}
-			
+
 			}
-				
+
 		}
 		catch(Exception e){
 			errorTxt.setText(errorTxt.getText() + "Sørg for å ha valgt to gyldige og forskjellige valuta");
 		}
-			
+
 	}
-	
-	
+
+
 	public void save() {
 		try {
 			savedInn = Double.valueOf(NOKInpField.getText());
 			savedUt = utValuta;
 			if(combOld.getValue().equals(NOK) ) {
-				
+
 				if(combNew.getValue().equals(USD)) {
 					io.save("valuta.txt", NOK, USD, NOK.getName(), USD.getName());
 				}
@@ -107,7 +110,7 @@ public class ValutakalkulatorController {
 				}
 			}
 			else if(combOld.getValue().equals(USD) ) {
-				
+
 				if(combNew.getValue().equals(NOK)) {
 					io.save("valuta.txt", USD, NOK, USD.getName(), NOK.getName());
 				}
@@ -116,14 +119,14 @@ public class ValutakalkulatorController {
 				}
 			}
 			else if(combOld.getValue().equals(EURO) ) {
-				
+
 				if(combNew.getValue().equals(NOK)) {
 					io.save("valuta.txt", EURO, NOK, EURO.getName(), NOK.getName());
 				}
 				if(combNew.getValue().equals(USD)) {
 					io.save("valuta.txt", EURO, USD, EURO.getName(), USD.getName());
 				}
-			
+
 			}
 			//io.save("valuta.txt", , );
 		} catch (IOException e) {
@@ -131,19 +134,19 @@ public class ValutakalkulatorController {
 			errorTxt.setText("Noe gikk galt ved skriving til fil");
 		}
 	}
-	
-	
-	
+
+
+
 	public void load() {
 		try {
 			ValutaObjectLoader loader = io.load("valuta.txt");
-			
+
 			Valuta ny = loader.ny;
 			Valuta gammel = loader.gammel;
-			
+
 			String stringInn = "" + savedInn + " " + gammel.getName();
 			//errorTxt.setText(stringNOK);
-			
+
 			String stringUt = "" + savedUt + " " + ny.getName();
 			errorTxt.setText(stringInn + "\n" + stringUt);
 		

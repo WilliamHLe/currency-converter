@@ -16,7 +16,6 @@ plugins {
     // code quality with SpotBugs
     id 'com.github.spotbugs' version '2.0.0'
     // code quality with checkstyle
-    id 'checkstyle'
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_10
@@ -33,10 +32,6 @@ tasks.withType(com.github.spotbugs.SpotBugsTask) {
         xml.enabled = false
         html.enabled = true
     }
-}
-
-checkstyle {
-    configFile = project.file("config/checkstyle/google_checks.xml")
 }
 
 dependencies {

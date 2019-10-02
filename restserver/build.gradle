@@ -10,8 +10,14 @@ ext {
 mainClassName = 'valutaKalk.restserver.ValutaGrizzlyApp'
 
 dependencies {
-    implementation project(':fxui')
+    implementation project(':core')
     implementation project(':restapi')
+
+    // JAX-B dependencies for JDK 9+
+    implementation "javax.xml.bind:jaxb-api:2.2.11"
+    implementation "com.sun.xml.bind:jaxb-core:2.2.11"
+    implementation "com.sun.xml.bind:jaxb-impl:2.2.11"
+    implementation "javax.activation:activation:1.1.1"
 
     compile "org.slf4j:slf4j-api:$slf4jVersion"
     compile "org.slf4j:slf4j-simple:$slf4jVersion"

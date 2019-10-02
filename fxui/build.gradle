@@ -27,9 +27,19 @@ test {
     }
 }
 
-mainClassName = 'valutaKalk.App'
+run {
+    args = ["http://localhost:8080/", "valuta/NOK.USD.10"]
+}
+
+mainClassName = 'valutaKalk.fxui.App'
 
 dependencies {
+
+    implementation project(':restserver')
+    implementation project(':core')
+    testCompile project(':restapi')
+    testImplementation project(':restserver')
+    compile "com.fasterxml.jackson.core:jackson-databind:${depVersions.jackson}"
     compile 'org.codehaus.groovy:groovy-all:2.3.11'
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testImplementation 'junit:junit:4.12'

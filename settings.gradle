@@ -1,6 +1,5 @@
 rootProject.name = 'gr1921'
 include 'core'
-include 'fxui'
+include ':fxui'
 include 'restapi'
 include 'restserver'
-
