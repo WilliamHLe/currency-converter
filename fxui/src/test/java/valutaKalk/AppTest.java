@@ -23,7 +23,7 @@ public class AppTest {
 
 	}
 
-	@Test (expected = IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testSetUSDNegative() {
 		USD.setUSD(-50);
 	}
@@ -63,4 +63,3 @@ public class AppTest {
 
 
 }
-

@@ -22,7 +22,7 @@ public class Valuta {
 	}
 
 	@Override
-	public String toString()  {
+	public String toString() {
 		return this.valutaType;
 	}
 
@@ -32,7 +32,7 @@ public class Valuta {
 
 
 	public void setNOK(double NOK) {
-		if(NOK < 0) {
+		if (NOK < 0) {
 			throw new IllegalArgumentException("Beløpet må være mer enn 0.");
 		}
 		this.NOK = NOK;
@@ -56,7 +56,7 @@ public class Valuta {
 
 
 	public void setUSD(double USD) {
-		if(USD < 0) {
+		if (USD < 0) {
 			throw new IllegalArgumentException("Beløpet må være mer enn 0.");
 		}
 		this.USD = USD;
@@ -80,7 +80,7 @@ public class Valuta {
 
 
 	public void setEURO(double EURO) {
-		if(EURO < 0) {
+		if (EURO < 0) {
 			throw new IllegalArgumentException("Beløpet må være mer enn 0.");
 		}
 	}
