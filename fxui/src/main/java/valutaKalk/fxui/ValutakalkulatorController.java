@@ -12,6 +12,12 @@ import javafx.scene.control.TextField;
 import valutaKalk.core.Valuta;
 import valutaKalk.core.AppIO;
 import valutaKalk.core.ValutaObjectLoader;
+import valutaKalk.core.JSON;
+import org.json.simple.parser.*;
+import org.json.simple.JSONArray;
+import java.io.PrintWriter;
+import org.json.simple.JSONObject;
+import java.io.FileReader;
 
 
 public class ValutakalkulatorController {
@@ -30,6 +36,7 @@ public class ValutakalkulatorController {
         double innValuta;
         double savedInn;
         double savedUt;
+        JSONObject obj = new JSONObject();
 
         ObservableList<Valuta> list //
                 = FXCollections.observableArrayList(NOK, USD, EURO);
@@ -104,30 +111,40 @@ public class ValutakalkulatorController {
 
 				if(combNew.getValue().equals(USD)) {
 					io.save("valuta.txt", NOK, USD, NOK.getName(), USD.getName());
+					obj = JSON.ValtutaJSON(NOK.getName(),USD.getName(),savedInn,savedUt);
 				}
 				if(combNew.getValue().equals(EURO)) {
 					io.save("valuta.txt", NOK, EURO, NOK.getName(), EURO.getName());
+					obj = JSON.ValtutaJSON(NOK.getName(),EURO.getName(),savedInn,savedUt);
 				}
 			}
 			else if(combOld.getValue().equals(USD) ) {
 
 				if(combNew.getValue().equals(NOK)) {
 					io.save("valuta.txt", USD, NOK, USD.getName(), NOK.getName());
+					obj = JSON.ValtutaJSON(USD.getName(),NOK.getName(),savedInn,savedUt);
 				}
 				if(combNew.getValue().equals(EURO)) {
 					io.save("valuta.txt", USD, EURO, USD.getName(), EURO.getName());
+					obj = JSON.ValtutaJSON(USD.getName(),EURO.getName(),savedInn,savedUt);
 				}
 			}
 			else if(combOld.getValue().equals(EURO) ) {
 
 				if(combNew.getValue().equals(NOK)) {
 					io.save("valuta.txt", EURO, NOK, EURO.getName(), NOK.getName());
+					obj = JSON.ValtutaJSON(EURO.getName(),NOK.getName(),savedInn,savedUt);
 				}
 				if(combNew.getValue().equals(USD)) {
 					io.save("valuta.txt", EURO, USD, EURO.getName(), USD.getName());
+					obj = JSON.ValtutaJSON(EURO.getName(),USD.getName(),savedInn,savedUt);
 				}
 
 			}
+			PrintWriter pw = new PrintWriter("valuta.json");
+			pw.write(obj.toJSONString());
+			pw.flush();
+			pw.close();
 			//io.save("valuta.txt", , );
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -137,18 +154,21 @@ public class ValutakalkulatorController {
 
 
 
-	public void load() {
+	public void load() throws Exception{
 		try {
 			ValutaObjectLoader loader = io.load("valuta.txt");
-
+			Object obj = new JSONParser().parse(new FileReader("valuta.json"));
+			JSONObject info = (JSONObject) obj;
 			Valuta ny = loader.ny;
 			Valuta gammel = loader.gammel;
 
 			String stringInn = "" + savedInn + " " + gammel.getName();
+			String stringInn2 = info.get("valuta1") + " " + info.get("valuta1amount");
 			//errorTxt.setText(stringNOK);
 
 			String stringUt = "" + savedUt + " " + ny.getName();
-			errorTxt.setText(stringInn + "\n" + stringUt);
+			String stringUt2 = info.get("valuta2") + " " + info.get("valuta2amount");
+			errorTxt.setText(stringInn2 + "\n" + stringUt2);
 		
 			
 			
