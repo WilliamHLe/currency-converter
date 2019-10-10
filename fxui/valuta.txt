@@ -1,1 +1,1 @@
-59.0 0.0 NOK USD
+20.0 0.0 null null
