@@ -102,7 +102,6 @@ public class ValutakalkulatorController {
 
 	}
 
-
 	public void save() {
 		try {
 			savedInn = Double.valueOf(NOKInpField.getText());

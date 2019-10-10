@@ -15,6 +15,11 @@ public class JSON {
 		json.put("valuta2amount",valuta2amount);
 		return json;
 	}
+
+	//public static calculates() {
+
+	//}
+
 }
 
 class ValJSON {
