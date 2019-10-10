@@ -42,6 +42,7 @@ dependencies {
     // api means that those consuming our library 'inherits' this as a compile dependency
     api "com.fasterxml.jackson.core:jackson-databind:${depVersions.jackson}"
 
+    compile "com.googlecode.json-simple:json-simple:1.1.1"
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
 }
