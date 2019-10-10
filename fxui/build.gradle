@@ -4,6 +4,7 @@ plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.8'
     id 'jacoco'
+    id 'checkstyle'
 }
 
 group '12'
@@ -25,6 +26,10 @@ test {
     if (project.hasProperty('ci') && "$ci" == 'gitlab') {
         exclude 'simpleex/ui/*'
     }
+}
+
+checkstyle {
+    configFile = project.file("../core/config/checkstyle/google_checks.xml")
 }
 
 run {

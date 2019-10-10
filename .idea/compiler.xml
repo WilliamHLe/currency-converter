@@ -18,8 +18,8 @@
       <module name="gr1921.core.test" target="1.10" />
       <module name="gr1921.fxui.main" target="1.8" />
       <module name="gr1921.fxui.test" target="1.8" />
-      <module name="gr1921.restapi.main" target="1.8" />
-      <module name="gr1921.restapi.test" target="1.8" />
+      <module name="gr1921.restapi.main" target="11" />
+      <module name="gr1921.restapi.test" target="11" />
       <module name="gr1921.restserver.main" target="11" />
       <module name="gr1921.restserver.test" target="11" />
       <module name="grad.main" target="1.8" />

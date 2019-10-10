@@ -13,7 +13,7 @@ public class AppIO implements AppIOInterface {
 	public void save(String filename, Valuta nok, Valuta result, String old, String ny) throws IOException {
 		PrintWriter writer = new PrintWriter(filename);
 
-		String s = nok.getNOK() + " " + result.getNOK() + " " +  nok.getName() + " " + result.getName();
+		String s = nok.getNOK() + " " + result.getNOK() + " " + nok.getName() + " " + result.getName();
 
 		writer.print(s);
 
@@ -25,7 +25,7 @@ public class AppIO implements AppIOInterface {
 		BufferedReader bufferedReader =
 				new BufferedReader(fileReader);
 
-		while((s = bufferedReader.readLine()) != null) {
+		while ((s = bufferedReader.readLine()) != null) {
 			System.out.println(s);
 		}
 
@@ -74,4 +74,3 @@ public class AppIO implements AppIOInterface {
 	}
 
 }
-
