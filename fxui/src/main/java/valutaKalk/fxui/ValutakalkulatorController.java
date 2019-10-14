@@ -54,47 +54,8 @@ public class ValutakalkulatorController {
 		errorTxt.setText("");
 		try {
 			double innValuta = Double.valueOf(NOKInpField.getText());
-			if(combOld.getValue().equals(NOK) ) {
-				NOK.setNOK(innValuta);
-				if(combNew.getValue().equals(USD)) {
-					utValuta = Valuta.calculateNOKToDollar(innValuta);
-					dollarInpField.setText("" + utValuta);
-					USD.setUSD(utValuta);
-				}
-				if(combNew.getValue().equals(EURO)) {
-					utValuta = Valuta.calculateNOKToEuro(innValuta);
-					dollarInpField.setText("" + utValuta);
-					EURO.setEURO(utValuta);
-				}
-			}
-			else if(combOld.getValue().equals(USD) ) {
-				USD.setUSD(innValuta);
-				if(combNew.getValue().equals(NOK)) {
-					utValuta = Valuta.calculateDollarToNOK(innValuta);
-					dollarInpField.setText("" + utValuta);
-					NOK.setNOK(utValuta);
-				}
-				if(combNew.getValue().equals(EURO)) {
-					utValuta = Valuta.calculateDollarToEuro(innValuta);
-					dollarInpField.setText("" + utValuta);
-					EURO.setEURO(utValuta);
-				}
-			}
-			else if(combOld.getValue().equals(EURO) ) {
-				EURO.setEURO(innValuta);
-				if(combNew.getValue().equals(NOK)) {
-					utValuta = Valuta.calculateEUROToNOK(innValuta);
-					dollarInpField.setText("" + utValuta);
-					NOK.setNOK(utValuta);
-				}
-				if(combNew.getValue().equals(USD)) {
-					utValuta = Valuta.calculateEUROToUSD(innValuta);
-					dollarInpField.setText("" + utValuta);
-					USD.setUSD(utValuta);
-				}
-
-			}
-
+            utValuta = Valuta.calc(combOld.getValue().toString(),combNew.getValue().toString(),innValuta);
+            dollarInpField.setText("" + utValuta);
 		}
 		catch(Exception e){
 			errorTxt.setText(errorTxt.getText() + "Sørg for å ha valgt to gyldige og forskjellige valuta");

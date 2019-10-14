@@ -39,25 +39,7 @@ public class ValutaService {
   @Produces(MediaType.APPLICATION_JSON)
   public JSONObject calculate(@PathParam("valuta1") String valuta1,@PathParam("valuta2") String valuta2, @PathParam("antall") double antall) {
     try {
-      if (valuta1.equals("NOK")) {
-        if (valuta2.equals("USD")) {
-          result = Valuta.calculateNOKToDollar(antall);
-        } else if (valuta2.equals("EUR")) {
-          result = Valuta.calculateNOKToEuro(antall);
-        }
-      } else if (valuta1.equals("USD")) {
-        if (valuta2.equals("NOK")) {
-          result = Valuta.calculateDollarToNOK(antall);
-        } else if (valuta2.equals("EUR")) {
-          result = Valuta.calculateDollarToEuro(antall);
-        }
-      } else if (valuta1.equals("EUR")) {
-        if (valuta2.equals("NOK")) {
-          result = Valuta.calculateEUROToNOK(antall);
-        } else if (valuta2.equals("USD")) {
-          result = Valuta.calculateEUROToUSD(antall);
-        }
-      }
+      result = Valuta.calc(valuta1,valuta2,antall);
       test = JSON.ValtutaJSON(valuta1,valuta2,antall,result);
     /*test.put("valuta1",valuta1);
     test.put("valuta1amount",antall);
@@ -82,25 +64,7 @@ public class ValutaService {
   @Produces(MediaType.APPLICATION_JSON)
   public JSONObject calculateSave(@PathParam("valuta1") String valuta1,@PathParam("valuta2") String valuta2, @PathParam("antall") double antall) {
     try {
-      if(valuta1.equals("NOK")) {
-        if(valuta2.equals("USD")) {
-          result = Valuta.calculateNOKToDollar(antall);
-        } else if(valuta2.equals("EUR")) {
-          result = Valuta.calculateNOKToEuro(antall);
-        }
-      } else if(valuta1.equals("USD")) {
-        if(valuta2.equals("NOK")) {
-          result = Valuta.calculateDollarToNOK(antall);
-        } else if(valuta2.equals("EUR")) {
-          result = Valuta.calculateDollarToEuro(antall);
-        }
-      } else if(valuta1.equals("EUR")) {
-        if(valuta2.equals("NOK")) {
-          result = Valuta.calculateEUROToNOK(antall);
-        } else if(valuta2.equals("USD")) {
-          result = Valuta.calculateEUROToUSD(antall);
-        }
-      }
+      result = Valuta.calc(valuta1,valuta2,antall);
       test = JSON.ValtutaJSON(valuta1,valuta2,antall,result);
       PrintWriter pw = new PrintWriter("valuta.json");
       pw.write(test.toJSONString());
