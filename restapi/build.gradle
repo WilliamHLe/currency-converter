@@ -10,6 +10,8 @@ dependencies {
     compile "com.fasterxml.jackson.core:jackson-databind:2.9.8"
     compile "com.fasterxml.jackson.core:jackson-annotations:2.9.0:"
 
+    compile "com.googlecode.json-simple:json-simple:1.1.1"
+
     compile "javax.ws.rs:javax.ws.rs-api:2.1.1"
     compile "javax.inject:javax.inject:1"
 }

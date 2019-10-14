@@ -9,13 +9,12 @@
 plugins {
     // java library
     id 'java-library'
-
     // test coverage
     id 'jacoco'
-
     // code quality with SpotBugs
     id 'com.github.spotbugs' version '2.0.0'
     // code quality with checkstyle
+    id 'checkstyle'
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_10
@@ -24,6 +23,10 @@ targetCompatibility = JavaVersion.VERSION_1_10
 spotbugs {
     // see http://gradle.monochromeroad.com/docs/dsl/org.gradle.api.plugins.quality.FindBugsExtension.html
     ignoreFailures = true
+}
+
+checkstyle {
+    configFile = project.file("config/checkstyle/google_checks.xml")
 }
 
 // To generate an HTML report instead of XML
@@ -39,6 +42,7 @@ dependencies {
     // api means that those consuming our library 'inherits' this as a compile dependency
     api "com.fasterxml.jackson.core:jackson-databind:${depVersions.jackson}"
 
+    compile "com.googlecode.json-simple:json-simple:1.1.1"
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
 }
