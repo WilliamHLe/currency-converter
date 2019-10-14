@@ -7,7 +7,7 @@ Group members;
 
 Mappene som utgjør største delen av kodingsprosjektet er modulene "core", "fxui", "restapi" og "restserver".
 "App.java" er filen som skal kjøres, den finner du i fxui/src/main/java/valutaKalk/fxui
-README-filen inni "core" mappa inneholder beskrivelse av appen, brukerhistorier og et snapshot av hvordan appen ser ut.
+**README-filen inni "core" mappa inneholder beskrivelse av appen, brukerhistorier og et snapshot av hvordan appen ser ut.**
 
 
 Trestruktur av mappene:
@@ -23,7 +23,7 @@ Trestruktur av mappene:
     |-- settings.gradle
     |-- .idea
     |   |-- ...
-    |-- core
+    |-- **core**
     |   |-- .DS_Store
     |   |-- README.md
     |   |-- build.gradle
@@ -44,7 +44,7 @@ Trestruktur av mappene:
     |                       |-- JSON.java
     |                       |-- Valuta.java
     |                       |-- ValutaObjectLoader.java
-    |-- fxui
+    |-- **fxui**
     |   |-- build.gradle
     |   |-- gradlew
     |   |-- gradlew.bat
@@ -67,7 +67,7 @@ Trestruktur av mappene:
     |               |-- valutaKalk
     |                   |-- AppTest.java
     |-- ...
-    |-- restapi
+    |-- **restapi**
     |   |-- build.gradle
     |   |-- gradlew
     |   |-- gradlew.bat
@@ -79,7 +79,7 @@ Trestruktur av mappene:
     |               |-- valutaKalk
     |                   |-- restapi
     |                       |-- ValutaService.java
-    |-- restserver
+    |-- **restserver**
         |-- build.gradle
         |-- settings.gradle
         |-- src
