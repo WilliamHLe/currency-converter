@@ -1,19 +1,23 @@
 package valutaKalk;
 
-import static org.junit.Assert.*;
-
-import java.io.IOException;
-
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import valutaKalk.core.Valuta;
 import valutaKalk.core.AppIO;
+import valutaKalk.core.Valuta;
+
+import java.io.FileReader;
+import java.io.IOException;
+
+import static org.junit.Assert.assertEquals;
 
 public class AppTest {
 
-	Valuta USD;
-	Valuta NOK;
-	AppIO lagre = new AppIO();
+	private Valuta USD;
+	private Valuta NOK;
+	private AppIO lagre = new AppIO();
 
 
 	@Before
@@ -52,7 +56,7 @@ public class AppTest {
 
 		try {
 			Double load = lagre.load("valuta.txt").gammel.getNOK();
-			assertTrue(load == 20.0);
+			Assert.assertTrue(load == 20);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -61,6 +65,29 @@ public class AppTest {
 	}
 
 
+	@Test
+	public void testRestAPI() {
+		NOK.setNOK(30);
+		USD.setUSD(Valuta.calculateNOKToDollar(30));
+		JSONParser parser = new JSONParser();
+		String valuta1 = null;
+		String valuta2 = null;
+		try {
 
+			Object obj = parser.parse(new FileReader("valuta.json"));
+
+			JSONObject jsonObject = (JSONObject) obj;
+
+			valuta1 = (String) jsonObject.get("valuta1");
+			valuta2 = (String) jsonObject.get("valuta2");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		//assertTrue(NOK.equals(valuta1));
+		Assert.assertTrue(NOK.equals(valuta1));
+
+	}
 }
+
 
