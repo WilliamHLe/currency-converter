@@ -50,6 +50,7 @@ Mappene som utgjør største delen av kodingsprosjektet er modulene "core", "fxu
 
 
 
+
 **README-filen inni "core" mappa inneholder beskrivelse av appen, brukerhistorier og et snapshot av hvordan appen ser ut.**
 
 
