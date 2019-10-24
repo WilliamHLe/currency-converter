@@ -1,20 +1,23 @@
 package valutaKalk.fxui;
 
-import java.io.IOException;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import valutaKalk.core.Valuta;
 import valutaKalk.core.AppIO;
-import org.json.simple.JSONObject;
+import valutaKalk.core.Valuta;
+
+import java.io.IOException;
 
 
 public class ValutakalkulatorController {
 
+	public Button saveBtn;
+	public Button loadBtn;
+	public Button button;
 	@FXML private TextField NOKInpField, dollarInpField;
 	@FXML private ComboBox<Valuta> combOld, combNew;
 	@FXML private Label errorTxt;
@@ -25,6 +28,7 @@ public class ValutakalkulatorController {
 	private Valuta NOK = new Valuta("NOK");
 	private Valuta USD = new Valuta("USD");
 	private Valuta EURO = new Valuta("EURO");
+
 	private double utValuta;
 
 	private ObservableList<Valuta> list //
@@ -40,13 +44,14 @@ public class ValutakalkulatorController {
 
 	@FXML
 	public void calculate() {
+		//Sørger for at reglene opprettholdes og at UI-et viser kalkulasjonene til Valuta.calc()
 		errorTxt.setText("");
 		try {
-			double innValuta = Double.valueOf(NOKInpField.getText());
+			double innValuta = Double.parseDouble(NOKInpField.getText());
 			utValuta = Valuta.calc(combOld.getValue().toString(),combNew.getValue().toString(),innValuta);
 			if(innValuta <= 0 || Valuta.error == 1){
 				Valuta.error = 1;
-				errorTxt.setText(errorTxt.getText() + "Sørg for å ha valgt to gyldige og forskjellige valuta");
+				errorTxt.setText(errorTxt.getText() + "Vennligst velg to gyldige og forskjellige valuta");
 			}
 			else{
 				Valuta.error = 0;
@@ -57,46 +62,48 @@ public class ValutakalkulatorController {
 
 		}
 		catch(Exception e){
-			errorTxt.setText(errorTxt.getText() + "Sørg for å ha valgt to gyldige og forskjellige valuta");
+			errorTxt.setText(errorTxt.getText() + "Vennligst velg to gyldige og forskjellige valuta");
 		}
 
 	}
 
 	public void save() {
 		try {
+			double innValuta = Double.parseDouble(NOKInpField.getText());
+			utValuta = Valuta.calc(combOld.getValue().toString(),combNew.getValue().toString(),innValuta);
 			if(Valuta.error == 1){
+				//Dersom brukeren prøver å lagre en ugyldig konvertering
 				errorTxt.setText("Noe gikk galt ved skriving til fil");
-				return;
 			}
 			else {
+				//Verdiene i de forskjellige input-enhetene bestemmes og sendes videre til lagring
 				double savedInn = Double.parseDouble(NOKInpField.getText());
 				double savedUt = utValuta;
-				JSONObject obj = new JSONObject();
 				if(combOld.getValue().equals(NOK) ) {
 
 					if(combNew.getValue().equals(USD)) {
-						obj = io.saveJSON(NOK.getName(),USD.getName(), savedInn, savedUt);
+						io.saveJSON(NOK.getName(),USD.getName(), savedInn, savedUt);
 					}
 					if(combNew.getValue().equals(EURO)) {
-						obj = io.saveJSON(NOK.getName(),EURO.getName(), savedInn, savedUt);
+						io.saveJSON(NOK.getName(),EURO.getName(), savedInn, savedUt);
 					}
 				}
 				else if(combOld.getValue().equals(USD) ) {
 
 					if(combNew.getValue().equals(NOK)) {
-						obj = io.saveJSON(USD.getName(),NOK.getName(), savedInn, savedUt);
+						io.saveJSON(USD.getName(),NOK.getName(), savedInn, savedUt);
 					}
 					if(combNew.getValue().equals(EURO)) {
-						obj = io.saveJSON(USD.getName(),EURO.getName(), savedInn, savedUt);
+						io.saveJSON(USD.getName(),EURO.getName(), savedInn, savedUt);
 					}
 				}
 				else if(combOld.getValue().equals(EURO) ) {
 
 					if(combNew.getValue().equals(NOK)) {
-						obj = io.saveJSON(EURO.getName(),NOK.getName(), savedInn, savedUt);
+						io.saveJSON(EURO.getName(),NOK.getName(), savedInn, savedUt);
 					}
 					if(combNew.getValue().equals(USD)) {
-						obj = io.saveJSON(EURO.getName(),USD.getName(), savedInn, savedUt);
+						io.saveJSON(EURO.getName(),USD.getName(), savedInn, savedUt);
 					}
 
 				}
@@ -111,11 +118,12 @@ public class ValutakalkulatorController {
 
 
 	public void load() throws Exception{
+		//Hentingen av data fra JSON-filen og viser dette i UI-et
 		try {
 			io.loadJSON();
-			String stringInn = io.valuta1amount + " " + io.valuta1;
+			String stringInn = AppIO.valuta1amount + " " + AppIO.valuta1;
 
-			String stringUt = io.valuta2amount + " " + io.valuta2;
+			String stringUt = AppIO.valuta2amount + " " + AppIO.valuta2;
 			errorTxt.setText(stringInn + "\n" + stringUt);
 		
 			

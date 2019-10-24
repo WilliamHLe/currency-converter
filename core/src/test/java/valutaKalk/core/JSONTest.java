@@ -13,9 +13,9 @@ import static org.junit.Assert.assertEquals;
 public class JSONTest {
 	@Test
 	public void testJSON() {
-		JSONObject obj = new JSONObject();
-		obj = JSON.ValtutaJSON("NOK","USD",50,5.75);
-		Assert.assertEquals("{\"valuta1amount\":50,\"valuta1\":\"NOK\",\"valuta2\":\"USD\",\"valuta2amount\":5.75,}",JSONObject.toJSONString(obj));
+		JSONObject obj;
+		obj = JSON.ValtutaJSON("NOK","USD",50.0,5.75);
+		Assert.assertEquals("{\"valuta1amount\":50.0,\"valuta1\":\"NOK\",\"valuta2\":\"USD\",\"valuta2amount\":5.75}",JSONObject.toJSONString(obj));
 	}
 
 	private Valuta USD;
@@ -48,7 +48,7 @@ public class JSONTest {
 	@Test
 	public void testSaveAndLoad() {
 		NOK.setNOK(50);
-		double ny = NOK.calculateNOKToDollar(NOK.getNOK());
+		double ny = Valuta.calculateNOKToDollar(NOK.getNOK());
 		try {
 			lagre.saveJSON("NOK", "USD", NOK.getNOK(), ny);
 		} catch (IOException e) {
