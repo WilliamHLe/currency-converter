@@ -40,6 +40,7 @@ mainClassName = 'valutaKalk.fxui.App'
 
 dependencies {
 
+    compile "com.googlecode.json-simple:json-simple:1.1.1"
     implementation project(':restserver')
     implementation project(':core')
     testCompile project(':restapi')
