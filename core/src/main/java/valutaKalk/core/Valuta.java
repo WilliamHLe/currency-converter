@@ -3,7 +3,9 @@ package valutaKalk.core;
 public class Valuta {
 
 
+
 	private String valutaType;
+	public static int error;
 
 	public Valuta() {
 
@@ -101,28 +103,35 @@ public class Valuta {
     static double result;
     public static double calc(String valuta1,String valuta2,double antall) {
         try {
-            if (valuta1.equals("NOK")) {
-                if (valuta2.equals("USD")) {
-                    result = calculateNOKToDollar(antall);
-                } else if (valuta2.equals("EURO") || valuta2.equals("EUR")) {
-                    result = calculateNOKToEuro(antall);
-                }
-            } else if (valuta1.equals("USD")) {
-                if (valuta2.equals("NOK")) {
-                    result = calculateDollarToNOK(antall);
-                } else if (valuta2.equals("EURO") || valuta2.equals("EUR")) {
-                    result = calculateDollarToEuro(antall);
-                }
-            } else if (valuta1.equals("EURO") || valuta1.equals("EUR")) {
-                if (valuta2.equals("NOK")) {
-                    result = calculateEUROToNOK(antall);
-                } else if (valuta2.equals("USD")) {
-                    result = calculateEUROToUSD(antall);
-                }
-            }
+        	if(valuta1.equals(valuta2) || antall <= 0){
+				error = 1;
+			}
+            else {
+            	if (valuta1.equals("NOK")) {
+					if (valuta2.equals("USD")) {
+						result = calculateNOKToDollar(antall);
+					} else if (valuta2.equals("EURO") || valuta2.equals("EUR")) {
+						result = calculateNOKToEuro(antall);
+					}
+				} else if (valuta1.equals("USD")) {
+					if (valuta2.equals("NOK")) {
+						result = calculateDollarToNOK(antall);
+					} else if (valuta2.equals("EURO") || valuta2.equals("EUR")) {
+						result = calculateDollarToEuro(antall);
+					}
+				} else if (valuta1.equals("EURO") || valuta1.equals("EUR")) {
+					if (valuta2.equals("NOK")) {
+						result = calculateEUROToNOK(antall);
+					} else if (valuta2.equals("USD")) {
+						result = calculateEUROToUSD(antall);
+					}
+				}
+            	error = 0;
+			}
             return result;
         } catch (Exception e) {
-            return result;
+        	error = 1;
+			throw new IllegalArgumentException("Beløpet må være mer enn 0.");
         }
     }
 

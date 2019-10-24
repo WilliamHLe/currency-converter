@@ -43,8 +43,18 @@ public class ValutakalkulatorController {
 		errorTxt.setText("");
 		try {
 			double innValuta = Double.valueOf(NOKInpField.getText());
-            utValuta = Valuta.calc(combOld.getValue().toString(),combNew.getValue().toString(),innValuta);
-            dollarInpField.setText("" + utValuta);
+			utValuta = Valuta.calc(combOld.getValue().toString(),combNew.getValue().toString(),innValuta);
+			if(innValuta <= 0 || Valuta.error == 1){
+				Valuta.error = 1;
+				errorTxt.setText(errorTxt.getText() + "Sørg for å ha valgt to gyldige og forskjellige valuta");
+			}
+			else{
+				Valuta.error = 0;
+				errorTxt.setText("");
+				dollarInpField.setText("" + utValuta);
+			}
+
+
 		}
 		catch(Exception e){
 			errorTxt.setText(errorTxt.getText() + "Sørg for å ha valgt to gyldige og forskjellige valuta");
@@ -54,37 +64,44 @@ public class ValutakalkulatorController {
 
 	public void save() {
 		try {
-			double savedInn = Double.parseDouble(NOKInpField.getText());
-			double savedUt = utValuta;
-			JSONObject obj = new JSONObject();
-			if(combOld.getValue().equals(NOK) ) {
+			if(Valuta.error == 1){
+				errorTxt.setText("Noe gikk galt ved skriving til fil");
+				return;
+			}
+			else {
+				double savedInn = Double.parseDouble(NOKInpField.getText());
+				double savedUt = utValuta;
+				JSONObject obj = new JSONObject();
+				if(combOld.getValue().equals(NOK) ) {
 
-				if(combNew.getValue().equals(USD)) {
-					obj = io.saveJSON(NOK.getName(),USD.getName(), savedInn, savedUt);
+					if(combNew.getValue().equals(USD)) {
+						obj = io.saveJSON(NOK.getName(),USD.getName(), savedInn, savedUt);
+					}
+					if(combNew.getValue().equals(EURO)) {
+						obj = io.saveJSON(NOK.getName(),EURO.getName(), savedInn, savedUt);
+					}
 				}
-				if(combNew.getValue().equals(EURO)) {
-					obj = io.saveJSON(NOK.getName(),EURO.getName(), savedInn, savedUt);
+				else if(combOld.getValue().equals(USD) ) {
+
+					if(combNew.getValue().equals(NOK)) {
+						obj = io.saveJSON(USD.getName(),NOK.getName(), savedInn, savedUt);
+					}
+					if(combNew.getValue().equals(EURO)) {
+						obj = io.saveJSON(USD.getName(),EURO.getName(), savedInn, savedUt);
+					}
+				}
+				else if(combOld.getValue().equals(EURO) ) {
+
+					if(combNew.getValue().equals(NOK)) {
+						obj = io.saveJSON(EURO.getName(),NOK.getName(), savedInn, savedUt);
+					}
+					if(combNew.getValue().equals(USD)) {
+						obj = io.saveJSON(EURO.getName(),USD.getName(), savedInn, savedUt);
+					}
+
 				}
 			}
-			else if(combOld.getValue().equals(USD) ) {
 
-				if(combNew.getValue().equals(NOK)) {
-					obj = io.saveJSON(USD.getName(),NOK.getName(), savedInn, savedUt);
-				}
-				if(combNew.getValue().equals(EURO)) {
-					obj = io.saveJSON(USD.getName(),EURO.getName(), savedInn, savedUt);
-				}
-			}
-			else if(combOld.getValue().equals(EURO) ) {
-
-				if(combNew.getValue().equals(NOK)) {
-					obj = io.saveJSON(EURO.getName(),NOK.getName(), savedInn, savedUt);
-				}
-				if(combNew.getValue().equals(USD)) {
-					obj = io.saveJSON(EURO.getName(),USD.getName(), savedInn, savedUt);
-				}
-
-			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			errorTxt.setText("Noe gikk galt ved skriving til fil");
