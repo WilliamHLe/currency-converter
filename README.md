@@ -4,6 +4,10 @@ This is a group project for the course IT1901 Informatikk Prosjektarbeid I. We h
 The goal of this course is to develop crucial skills in cooperation, project planning and source-code management. This includes learning
 to use Git and using Git-repository manager GitLab.
 
+## Requirements
+
+You need to have a recent version of Java installed.
+
 ## Installation
 
 1. Use any IDE thats supports Java and clone: 
@@ -36,7 +40,7 @@ Mappene som utgjør største delen av kodingsprosjektet er modulene "core", "fxu
 
 
 
-## Authors
+## Team Members
 *  Malin Holte
 *  Sivert Hognes
 *  William H. Le
