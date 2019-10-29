@@ -1,6 +1,5 @@
 package valutaKalk.core;
 
-import java.io.IOException;
 import org.json.simple.JSONObject;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;

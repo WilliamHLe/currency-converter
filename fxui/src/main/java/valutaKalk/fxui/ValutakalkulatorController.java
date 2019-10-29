@@ -1,16 +1,13 @@
 package valutaKalk.fxui;
 
-import java.io.IOException;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.SelectionModel;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import valutaKalk.core.Valuta;
 import valutaKalk.core.AppIO;
 import valutaKalk.core.ValutaObjectLoader;
 import valutaKalk.core.JSON;
@@ -27,6 +24,9 @@ import java.util.List;
 
 public class ValutakalkulatorController {
 
+	public Button saveBtn;
+	public Button loadBtn;
+	public Button button;
 	@FXML private TextField NOKInpField, dollarInpField;
 	@FXML private ComboBox<String> combOld, combNew;
 	@FXML private Label errorTxt;
@@ -63,14 +63,25 @@ public class ValutakalkulatorController {
 
 	@FXML
 	public void calculate() {
+		//Sørger for at reglene opprettholdes og at UI-et viser kalkulasjonene til Valuta.calc()
 		errorTxt.setText("");
 		try {
-			double innValuta = Double.valueOf(NOKInpField.getText());
-            utValuta = Valuta.calc(combOld.getValue().toString(),combNew.getValue().toString(),innValuta);
-            dollarInpField.setText("" + utValuta);
+			double innValuta = Double.parseDouble(NOKInpField.getText());
+			utValuta = Valuta.calc(combOld.getValue().toString(),combNew.getValue().toString(),innValuta);
+			if(innValuta <= 0 || Valuta.error == 1){
+				Valuta.error = 1;
+				errorTxt.setText(errorTxt.getText() + "Vennligst velg to gyldige og forskjellige valuta");
+			}
+			else{
+				Valuta.error = 0;
+				errorTxt.setText("");
+				dollarInpField.setText("" + utValuta);
+			}
+
+
 		}
 		catch(Exception e){
-			errorTxt.setText(errorTxt.getText() + "Sørg for å ha valgt to gyldige og forskjellige valuta");
+			errorTxt.setText(errorTxt.getText() + "Vennligst velg to gyldige og forskjellige valuta");
 		}
 
 	}
@@ -90,47 +101,46 @@ public class ValutakalkulatorController {
 
 	public void save() {
 		try {
-			savedInn = Double.valueOf(NOKInpField.getText());
-			savedUt = utValuta;
-			if(combOld.getValue().equals(NOK) ) {
+			double innValuta = Double.parseDouble(NOKInpField.getText());
+			utValuta = Valuta.calc(combOld.getValue().toString(),combNew.getValue().toString(),innValuta);
+			if(Valuta.error == 1){
+				//Dersom brukeren prøver å lagre en ugyldig konvertering
+				errorTxt.setText("Noe gikk galt ved skriving til fil");
+			}
+			else {
+				//Verdiene i de forskjellige input-enhetene bestemmes og sendes videre til lagring
+				double savedInn = Double.parseDouble(NOKInpField.getText());
+				double savedUt = utValuta;
+				if(combOld.getValue().equals(NOK) ) {
 
-				if(combNew.getValue().equals(USD)) {
-					io.save("valuta.txt", NOK, USD, NOK.getName(), USD.getName());
-					obj = JSON.ValtutaJSON(NOK.getName(),USD.getName(),savedInn,savedUt);
+					if(combNew.getValue().equals(USD)) {
+						io.saveJSON(NOK.getName(),USD.getName(), savedInn, savedUt);
+					}
+					if(combNew.getValue().equals(EURO)) {
+						io.saveJSON(NOK.getName(),EURO.getName(), savedInn, savedUt);
+					}
 				}
-				if(combNew.getValue().equals(EURO)) {
-					io.save("valuta.txt", NOK, EURO, NOK.getName(), EURO.getName());
-					obj = JSON.ValtutaJSON(NOK.getName(),EURO.getName(),savedInn,savedUt);
+				else if(combOld.getValue().equals(USD) ) {
+
+					if(combNew.getValue().equals(NOK)) {
+						io.saveJSON(USD.getName(),NOK.getName(), savedInn, savedUt);
+					}
+					if(combNew.getValue().equals(EURO)) {
+						io.saveJSON(USD.getName(),EURO.getName(), savedInn, savedUt);
+					}
+				}
+				else if(combOld.getValue().equals(EURO) ) {
+
+					if(combNew.getValue().equals(NOK)) {
+						io.saveJSON(EURO.getName(),NOK.getName(), savedInn, savedUt);
+					}
+					if(combNew.getValue().equals(USD)) {
+						io.saveJSON(EURO.getName(),USD.getName(), savedInn, savedUt);
+					}
+
 				}
 			}
-			else if(combOld.getValue().equals(USD) ) {
 
-				if(combNew.getValue().equals(NOK)) {
-					io.save("valuta.txt", USD, NOK, USD.getName(), NOK.getName());
-					obj = JSON.ValtutaJSON(USD.getName(),NOK.getName(),savedInn,savedUt);
-				}
-				if(combNew.getValue().equals(EURO)) {
-					io.save("valuta.txt", USD, EURO, USD.getName(), EURO.getName());
-					obj = JSON.ValtutaJSON(USD.getName(),EURO.getName(),savedInn,savedUt);
-				}
-			}
-			else if(combOld.getValue().equals(EURO) ) {
-
-				if(combNew.getValue().equals(NOK)) {
-					io.save("valuta.txt", EURO, NOK, EURO.getName(), NOK.getName());
-					obj = JSON.ValtutaJSON(EURO.getName(),NOK.getName(),savedInn,savedUt);
-				}
-				if(combNew.getValue().equals(USD)) {
-					io.save("valuta.txt", EURO, USD, EURO.getName(), USD.getName());
-					obj = JSON.ValtutaJSON(EURO.getName(),USD.getName(),savedInn,savedUt);
-				}
-
-			}
-			/*PrintWriter pw = new PrintWriter("valuta.json");
-			pw.write(obj.toJSONString());
-			pw.flush();
-			pw.close();*/
-			//io.save("valuta.txt", , );
 		} catch (IOException e) {
 			e.printStackTrace();
 			errorTxt.setText("Noe gikk galt ved skriving til fil");
@@ -140,20 +150,13 @@ public class ValutakalkulatorController {
 
 
 	public void load() throws Exception{
+		//Hentingen av data fra JSON-filen og viser dette i UI-et
 		try {
-			ValutaObjectLoader loader = io.load("valuta.txt");
-			Object obj = new JSONParser().parse(new FileReader("valuta.json"));
-			JSONObject info = (JSONObject) obj;
-			Valuta ny = loader.ny;
-			Valuta gammel = loader.gammel;
+			io.loadJSON();
+			String stringInn = AppIO.valuta1amount + " " + AppIO.valuta1;
 
-			String stringInn = "" + savedInn + " " + gammel.getName();
-			String stringInn2 = info.get("valuta1") + " " + info.get("valuta1amount");
-			//errorTxt.setText(stringNOK);
-
-			String stringUt = "" + savedUt + " " + ny.getName();
-			String stringUt2 = info.get("valuta2") + " " + info.get("valuta2amount");
-			errorTxt.setText(stringInn2 + "\n" + stringUt2);
+			String stringUt = AppIO.valuta2amount + " " + AppIO.valuta2;
+			errorTxt.setText(stringInn + "\n" + stringUt);
 		
 			
 			
