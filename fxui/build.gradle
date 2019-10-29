@@ -42,6 +42,7 @@ dependencies {
 
     implementation project(':restserver')
     implementation project(':core')
+    implementation project(':restapi')
     testCompile project(':restapi')
     testImplementation project(':restserver')
     compile "com.fasterxml.jackson.core:jackson-databind:${depVersions.jackson}"

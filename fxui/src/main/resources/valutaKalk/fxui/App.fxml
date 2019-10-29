@@ -20,6 +20,7 @@
       <ComboBox fx:id="combOld" layoutX="218.0" layoutY="78.0" prefHeight="26.0" prefWidth="75.0" promptText="Valuta" />
       <ComboBox fx:id="combNew" layoutX="449.0" layoutY="78.0" prefHeight="26.0" prefWidth="98.0" promptText="Ny Valuta" />
       <Label fx:id="errorTxt" layoutX="69.0" layoutY="171.0" prefHeight="30.0" prefWidth="485.0" />
+      <Button fx:id="changeBtn" layoutX="275.0" layoutY="110.0" mnemonicParsing="false" onAction="#change" text="&lt;-&gt;" />
       <Button fx:id="saveBtn" layoutX="493.0" layoutY="129.0" mnemonicParsing="false" onAction="#save" text="Lagre" />
       <Button fx:id="loadBtn" layoutX="493.0" layoutY="158.0" mnemonicParsing="false" onAction="#load" text="Gjenoppta" />
    </children>
