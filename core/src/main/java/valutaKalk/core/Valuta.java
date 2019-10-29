@@ -1,11 +1,19 @@
 package valutaKalk.core;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.InputStream;
+import java.net.URL;
+
 public class Valuta {
 
 
 
 	private String valutaType;
-	public static int error;
+    public static int error;
 
 	public Valuta() {
 
@@ -25,6 +33,7 @@ public class Valuta {
 	}
 
 	private double NOK;
+	private static double NOKusd = 0.115;
 
 
 	public void setNOK(double NOK) {
@@ -34,25 +43,21 @@ public class Valuta {
 		this.NOK = NOK;
 	}
 
-	public double getNOK() {
-		return NOK;
-	}
-
 	public static double calculateNOKToDollar(double inpNOK) {
 		double NOKusd = 0.115;
 		return inpNOK * NOKusd;
 	}
 
-	private static double calculateNOKToEuro(double inpNOK) {
-		double NOKeur = 0.102;
-		return inpNOK * NOKeur;
-	}
+	private double USD;
+	private static double USDnok = 8.68;
+	private static double USDeur = 0.88;
 
 
 	public void setUSD(double USD) {
 		if (USD < 0) {
 			throw new IllegalArgumentException("Beløpet må være mer enn 0.");
 		}
+		this.USD = USD;
 	}
 
 	public static double calculateDollarToNOK(double inpUSD) {
@@ -65,58 +70,28 @@ public class Valuta {
 		return inpUSD * USDeur;
 	}
 
-
-	private static double calculateEUROToNOK(double inpEURO) {
-		double EUROnok = 9.99;
-		return inpEURO * EUROnok;
-	}
-
-	private static double calculateEUROToUSD(double inpEURO) {
-		double EUROusd = 1.11;
-		return inpEURO * EUROusd;
-	}
-
-
-    private static double result;
+    static double result;
 	//calc sjekker hvilken valutatype den skal konvertere fra og til og konverterer med riktig kurs deretter.
     public static double calc(String valuta1,String valuta2,double antall) {
         try {
-        	if(valuta1.equals(valuta2) || antall <= 0){
-				error = 1;
-			}
+            if(valuta1.equals(valuta2) || antall <= 0){
+                error = 1;
+                return result;
+            }
             else {
-				switch (valuta1) {
-					case "NOK":
-						if (valuta2.equals("USD")) {
-							result = calculateNOKToDollar(antall);
-						} else if (valuta2.equals("EURO") || valuta2.equals("EUR")) {
-							result = calculateNOKToEuro(antall);
-						}
-						break;
-					case "USD":
-						if (valuta2.equals("NOK")) {
-							result = calculateDollarToNOK(antall);
-						} else if (valuta2.equals("EURO") || valuta2.equals("EUR")) {
-							result = calculateDollarToEuro(antall);
-						}
-						break;
-					case "EURO":
-					case "EUR":
-						if (valuta2.equals("NOK")) {
-							result = calculateEUROToNOK(antall);
-						} else if (valuta2.equals("USD")) {
-							result = calculateEUROToUSD(antall);
-						}
-						break;
-				}
-            	error = 0;
-			}
-            return result;
+				File f = new File(Valuta.class.getResource("/valutaKalk/fxui/valutalist.json").getFile()); //Henter json fil fra fxui pakken
+                Object obj = new JSONParser().parse(new FileReader(f));
+                JSONObject json = (JSONObject) obj;
+                //Finner riktig kurs og regner ut
+                JSONObject jsonVal1 = (JSONObject) json.get(valuta1);
+                double rate = (double) jsonVal1.get(valuta2);
+                result = antall * rate;
+                error = 0;
+                return result;
+            }
         } catch (Exception e) {
-        	error = 1;
-			throw new IllegalArgumentException("Beløpet må være mer enn 0.");
+            error = 1;
+            throw new IllegalArgumentException("Beløpet må være mer enn 0.");
         }
     }
-
-
 }
