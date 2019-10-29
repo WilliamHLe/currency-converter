@@ -69,5 +69,10 @@
             </Label>
          </children>
       </AnchorPane>
+      <ImageView fitHeight="50.0" fitWidth="46.0" layoutX="44.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@pictures/euro.PNG" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
