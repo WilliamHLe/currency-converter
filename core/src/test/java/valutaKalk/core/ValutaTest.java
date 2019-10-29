@@ -12,11 +12,11 @@ public class ValutaTest {
         double USDEUR = Valuta.calc("USD","EURO",50);
         double EURONOK = Valuta.calc("EURO","NOK",50);
         double EUROUSD = Valuta.calc("EURO","USD",50);
-        Assert.assertEquals(Double.toString(5.75),NOKUSD);
-        Assert.assertEquals(Double.toString(5.1),NOKEURO);
-        Assert.assertEquals(Double.toString(434.0),USDNOK);
-        Assert.assertEquals(Double.toString(44.0),USDEUR);
-        Assert.assertEquals(Double.toString(499.5),EURONOK);
-        Assert.assertEquals(Double.toString(55.50000000000001),EUROUSD);
+        Assert.assertEquals(5.75,NOKUSD,0.5);
+        Assert.assertEquals(5.1,NOKEURO, 0.5);
+        Assert.assertEquals(434.0,USDNOK, 0.5);
+        Assert.assertEquals(44.0,USDEUR, 0.5);
+        Assert.assertEquals(499.5,EURONOK, 0.5);
+        Assert.assertEquals(55.50000000000001,EUROUSD, 0.5);
     }
 }
