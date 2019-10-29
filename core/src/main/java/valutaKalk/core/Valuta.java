@@ -11,6 +11,7 @@ import java.net.URL;
 public class Valuta {
 
 
+
 	private String valutaType;
     public static int error;
 
@@ -43,6 +44,7 @@ public class Valuta {
 	}
 
 	public static double calculateNOKToDollar(double inpNOK) {
+		double NOKusd = 0.115;
 		return inpNOK * NOKusd;
 	}
 
@@ -59,10 +61,12 @@ public class Valuta {
 	}
 
 	public static double calculateDollarToNOK(double inpUSD) {
+		double USDnok = 8.68;
 		return inpUSD * USDnok;
 	}
 
 	public static double calculateDollarToEuro(double inpUSD) {
+		double USDeur = 0.88;
 		return inpUSD * USDeur;
 	}
 

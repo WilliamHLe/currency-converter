@@ -24,6 +24,9 @@ import java.util.List;
 
 public class ValutakalkulatorController {
 
+	public Button saveBtn;
+	public Button loadBtn;
+	public Button button;
 	@FXML private TextField NOKInpField, dollarInpField;
 	@FXML private ComboBox<String> combOld, combNew;
 	@FXML private Label errorTxt;
