@@ -5,12 +5,21 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.SelectionModel;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import valutaKalk.core.AppIO;
-import valutaKalk.core.Valuta;
-
-import java.io.IOException;
+import valutaKalk.core.ValutaObjectLoader;
+import valutaKalk.core.JSON;
+import org.json.simple.parser.*;
+import org.json.simple.JSONArray;
+import java.io.PrintWriter;
+import org.json.simple.JSONObject;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 
 
 public class ValutakalkulatorController {
@@ -19,27 +28,37 @@ public class ValutakalkulatorController {
 	public Button loadBtn;
 	public Button button;
 	@FXML private TextField NOKInpField, dollarInpField;
-	@FXML private ComboBox<Valuta> combOld, combNew;
+	@FXML private ComboBox<String> combOld, combNew;
 	@FXML private Label errorTxt;
 
 	private AppIO io = new AppIO();
 
 
-	private Valuta NOK = new Valuta("NOK");
-	private Valuta USD = new Valuta("USD");
-	private Valuta EURO = new Valuta("EURO");
+        Valuta NOK = new Valuta("NOK");
+        Valuta USD = new Valuta("USD");
+        Valuta EURO = new Valuta("EURO");
+        double utValuta;
+        double innValuta;
+        double savedInn;
+        double savedUt;
+		JSONObject obj = new JSONObject();
 
-	private double utValuta;
-
-	private ObservableList<Valuta> list //
-                = FXCollections.observableArrayList(NOK, USD, EURO);
+        ObservableList<String> list; //
+		ObservableList<String> list2; //
+                //= FXCollections.observableArrayList(NOK, USD, EURO);
 
 	@FXML
 	public void initialize() {
-		combOld.setItems(list);
-		combNew.setItems(list);
-		dollarInpField.setText("0");
-
+		try {
+			Object hm = new JSONParser().parse(new FileReader("valutaer.json"));
+			JSONObject json = (JSONObject) hm;
+			ObservableList liste = FXCollections.observableArrayList(json.keySet());
+			combOld.setItems(liste);
+			combNew.setItems(liste);
+			dollarInpField.setText("0");
+		} catch (Exception e) {
+			errorTxt.setText("Noe feil skjedde.");
+		}
 	}
 
 	@FXML
@@ -66,6 +85,19 @@ public class ValutakalkulatorController {
 		}
 
 	}
+
+	//Funksjon som lar deg bytte mellom de to valgte valutaene
+	public void change() {
+	    if(combOld.getValue() == null || combNew.getValue() == null) { //Hvis man ikke har valgt to valutaer
+            errorTxt.setText("Velg to valutaer.");
+        } else {
+	        String Old = combOld.getValue();
+            combOld.setValue(combNew.getValue());
+            combNew.setValue(Old);
+            calculate();
+        }
+    }
+
 
 	public void save() {
 		try {

@@ -43,6 +43,7 @@ dependencies {
     compile "com.googlecode.json-simple:json-simple:1.1.1"
     implementation project(':restserver')
     implementation project(':core')
+    implementation project(':restapi')
     testCompile project(':restapi')
     testImplementation project(':restserver')
     compile "com.fasterxml.jackson.core:jackson-databind:${depVersions.jackson}"
