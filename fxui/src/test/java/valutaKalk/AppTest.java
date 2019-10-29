@@ -1,11 +1,14 @@
 package valutaKalk;
 
-import org.json.simple.parser.ParseException;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import valutaKalk.core.AppIO;
 import valutaKalk.core.Valuta;
 
+import java.io.FileReader;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
@@ -41,10 +44,10 @@ public class AppTest {
 
 	@Test
 	public void testSaveAndLoad() {
-		NOK.setNOK(50);
-		double ny = NOK.calculateNOKToDollar(NOK.getNOK());
+		NOK.setNOK(20);
+		USD.setUSD(30);
 		try {
-			lagre.saveJSON("NOK", "USD", NOK.getNOK(), ny);
+			lagre.save("valuta.txt", NOK, USD, NOK.getName(), USD.getName());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -52,44 +55,39 @@ public class AppTest {
 
 
 		try {
-			lagre.loadJSON();
-			assertEquals(5.75, ny, 0.5);
+			Double load = lagre.load("valuta.txt").gammel.getNOK();
+			Assert.assertTrue(load == 20);
 
-		} catch (IOException | ParseException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 
-	/*@Test
+	@Test
 	public void testRestAPI() {
 		NOK.setNOK(30);
 		USD.setUSD(Valuta.calculateNOKToDollar(30));
 		JSONParser parser = new JSONParser();
-		double valuta1;
-		double valuta2;
+		String valuta1 = null;
+		String valuta2 = null;
 		try {
 
 			Object obj = parser.parse(new FileReader("valuta.json"));
 
 			JSONObject jsonObject = (JSONObject) obj;
 
-			PrintWriter pw = new PrintWriter("valuta.json");
-			pw.write(((JSONObject) obj).toJSONString());
-			pw.flush();
-			pw.close();
-
-			valuta1 = (double) jsonObject.get("valuta1amount");
-			valuta2 = (double) jsonObject.get("valuta2amount");
-			System.out.println(valuta1);
+			valuta1 = (String) jsonObject.get("valuta1");
+			valuta2 = (String) jsonObject.get("valuta2");
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		//assertTrue(NOK.equals(valuta1));
+		Assert.assertTrue(NOK.equals(valuta1));
 
-
-	}*/
+	}
 }
 
 
