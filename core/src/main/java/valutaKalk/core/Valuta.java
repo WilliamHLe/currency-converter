@@ -1,5 +1,10 @@
 package valutaKalk.core;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import java.io.FileReader;
+
 public class Valuta {
 
 
@@ -101,7 +106,12 @@ public class Valuta {
     static double result;
     public static double calc(String valuta1,String valuta2,double antall) {
         try {
-            if (valuta1.equals("NOK")) {
+			Object obj = new JSONParser().parse(new FileReader("valutaer.json"));
+			JSONObject json = (JSONObject) obj;
+			JSONObject jsonVal1 = (JSONObject) json.get(valuta1);
+			double rate = (double) jsonVal1.get(valuta2);
+			result = antall * rate;
+            /*if (valuta1.equals("NOK")) {
                 if (valuta2.equals("USD")) {
                     result = calculateNOKToDollar(antall);
                 } else if (valuta2.equals("EURO") || valuta2.equals("EUR")) {
@@ -119,7 +129,7 @@ public class Valuta {
                 } else if (valuta2.equals("USD")) {
                     result = calculateEUROToUSD(antall);
                 }
-            }
+            }*/
             return result;
         } catch (Exception e) {
             return result;
