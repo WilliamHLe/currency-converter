@@ -24,20 +24,25 @@ Or use Git to clone:
 
 2. Create module from existing sources and select build.gradle file in the root folder.
 
-3. Build and run proejct.
+3. Build and run project.
 
 ## Usage
 
 
-Mappene som utgjør største delen av kodingsprosjektet er modulene "core", "fxui", "restapi" og "restserver". \
-"App.java" er filen som skal kjøres, den finner du i fxui/src/main/java/valutaKalk/fxui 
+The project consists of four modules; "core", "fxui", "restapi" and "restserver". \
+"App.java" is the file to be runned and is located in fxui/src/main/java/valutaKalk/fxui \
+
+You can find another README file inside the core module that describes the user history and a screenshot of the application.
 
 ## Tests
 
 ## Technology/framework
 * Java
-* Gradle
+* Gradle \
 
+### Tests and code quality
+*  CheckStyle
+*  Jacoco
 
 
 ## Team Members
@@ -50,94 +55,3 @@ Mappene som utgjør største delen av kodingsprosjektet er modulene "core", "fxu
 
 
 
-
-
-**README-filen inni "core" mappa inneholder beskrivelse av appen, brukerhistorier og et snapshot av hvordan appen ser ut.**
-
-
-
-
-
-
-
-
-
-Trestruktur av mappene:
-
-|-- gr1921
-    |-- .DS_Store
-    |-- .gitignore
-    |-- .gitlab-ci.yml
-    |-- README.md
-    |-- build.gradle
-    |-- gradlew
-    |-- gradlew.bat
-    |-- settings.gradle
-    |-- .idea
-    |   |-- ...
-    |-- **core**
-    |   |-- .DS_Store
-    |   |-- README.md
-    |   |-- build.gradle
-    |   |-- gradlew
-    |   |-- gradlew.bat
-    |   |-- settings.gradle
-    |   |-- valuta.txt
-    |   |-- ...
-    |   |-- ...
-    |   |-- src
-    |       |-- main
-    |           |-- java
-    |               |-- Valuta.java
-    |               |-- valutaKalk
-    |                   |-- core
-    |                       |-- AppIO.java
-    |                       |-- AppIOInterface.java
-    |                       |-- JSON.java
-    |                       |-- Valuta.java
-    |                       |-- ValutaObjectLoader.java
-    |-- **fxui**
-    |   |-- build.gradle
-    |   |-- gradlew
-    |   |-- gradlew.bat
-    |   |-- settings.gradle
-    |   |-- valuta.json
-    |   |-- valuta.txt
-    |   |-- src
-    |       |-- main
-    |       |   |-- java
-    |       |   |   |-- valutaKalk
-    |       |   |       |-- fxui
-    |       |   |           |-- App.java
-    |       |   |           |-- ValutakalkulatorController.java
-    |       |   |-- resources
-    |       |       |-- valutaKalk
-    |       |           |-- fxui
-    |       |               |-- App.fxml
-    |       |-- test
-    |           |-- java
-    |               |-- valutaKalk
-    |                   |-- AppTest.java
-    |-- ...
-    |-- **restapi**
-    |   |-- build.gradle
-    |   |-- gradlew
-    |   |-- gradlew.bat
-    |   |-- settings.gradle
-    |   |-- ...
-    |   |-- src
-    |       |-- main
-    |           |-- java
-    |               |-- valutaKalk
-    |                   |-- restapi
-    |                       |-- ValutaService.java
-    |-- **restserver**
-        |-- build.gradle
-        |-- settings.gradle
-        |-- src
-            |-- main
-                |-- java
-                    |-- valutaKalk
-                        |-- restserver
-                            |-- ValutaConfig.java
-                            |-- ValutaGrizzlyApp.java
