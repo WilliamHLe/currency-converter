@@ -21,30 +21,35 @@ public class AppTest {
 	public void setUp() {
 		USD = new Valuta();
 		NOK = new Valuta();
+		//Setter opp valutaer for testing
 
 	}
 
 	@Test (expected = IllegalArgumentException.class)
-	public void testSetUSDNegative() {
+	public void testSetValutaNegative() {
 		USD.setUSD(-50);
+		NOK.setNOK(-50);
+		//Sjekker at en ikke kan bruke negative verdier
 	}
 
 	@Test
 	public void testCalculateDollarToNOK() {
-		assertEquals(86.8, Valuta.calculateDollarToNOK(10), 0.5);
+		assertEquals(86.8, Valuta.calc("USD","NOK",10), 0.5);
+		//Tester korrekt kalkulasjon av calc-funksjonen
 	}
 
 	@Test
 	public void testCalculateDollarToEuro() {
-		assertEquals(8.8, Valuta.calculateDollarToEuro(10), 0.5);
+		assertEquals(8.8, Valuta.calc("USD", "EURO", 10), 0.5);
+		//Tester korrekt kalkulasjon av calc-funksjonen
 	}
 
 	@Test
 	public void testSaveAndLoad() {
-		NOK.setNOK(50);
-		double ny = NOK.calculateNOKToDollar(NOK.getNOK());
+		//Tester knappene "Lagre" og "Gjenoppta"
+		double ny = Valuta.calc("NOK","USD",50);
 		try {
-			lagre.saveJSON("NOK", "USD", NOK.getNOK(), ny);
+			lagre.saveJSON("NOK", "USD", 50, ny);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -60,36 +65,6 @@ public class AppTest {
 			e.printStackTrace();
 		}
 	}
-
-
-	/*@Test
-	public void testRestAPI() {
-		NOK.setNOK(30);
-		USD.setUSD(Valuta.calculateNOKToDollar(30));
-		JSONParser parser = new JSONParser();
-		double valuta1;
-		double valuta2;
-		try {
-
-			Object obj = parser.parse(new FileReader("valuta.json"));
-
-			JSONObject jsonObject = (JSONObject) obj;
-
-			PrintWriter pw = new PrintWriter("valuta.json");
-			pw.write(((JSONObject) obj).toJSONString());
-			pw.flush();
-			pw.close();
-
-			valuta1 = (double) jsonObject.get("valuta1amount");
-			valuta2 = (double) jsonObject.get("valuta2amount");
-			System.out.println(valuta1);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-
-	}*/
 }
 
 

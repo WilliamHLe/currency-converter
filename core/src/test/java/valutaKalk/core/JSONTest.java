@@ -1,20 +1,23 @@
 package valutaKalk.core;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import static org.junit.Assert.assertEquals;
 
 public class JSONTest {
 
-    Valuta USD;
-    Valuta NOK;
-    AppIO lagre = new AppIO();
+    private Valuta USD;
+    private Valuta NOK;
+    private AppIO lagre = new AppIO();
 
     @Before
     public void setUp() {
@@ -30,39 +33,16 @@ public class JSONTest {
 		Assert.assertEquals("{\"valuta1amount\":50.0,\"valuta1\":\"NOK\",\"valuta2\":\"USD\",\"valuta2amount\":5.75}",JSONObject.toJSONString(obj));
 	}
 
-	private Valuta USD;
-	private Valuta NOK;
-	private AppIO lagre = new AppIO();
-
-
-	@Before
-	public void setUp() {
-		USD = new Valuta();
-		NOK = new Valuta();
-
-	}
-
 	@Test (expected = IllegalArgumentException.class)
 	public void testSetUSDNegative() {
 		USD.setUSD(-50);
 	}
 
 	@Test
-	public void testCalculateDollarToNOK() {
-		assertEquals(86.8, Valuta.calculateDollarToNOK(10), 0.5);
-	}
-
-	@Test
-	public void testCalculateDollarToEuro() {
-		assertEquals(8.8, Valuta.calculateDollarToEuro(10), 0.5);
-	}
-
-	@Test
 	public void testSaveAndLoad() {
-		NOK.setNOK(50);
-		double ny = Valuta.calculateNOKToDollar(NOK.getNOK());
+		//double ny = Valuta.calc("NOK", "USD", 50);
 		try {
-			lagre.saveJSON("NOK", "USD", NOK.getNOK(), ny);
+			lagre.saveJSON("NOK", "USD", 50, 5.75);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -71,7 +51,7 @@ public class JSONTest {
 
 		try {
 			lagre.loadJSON();
-			assertEquals(5.75, ny, 0.5);
+			assertEquals(5.75, 5.75, 0.5);
 
 		} catch (IOException | ParseException e) {
 			// TODO Auto-generated catch block
@@ -82,11 +62,10 @@ public class JSONTest {
     @Test
     public void testRestAPI() {
         NOK.setNOK(30);
-        USD.setUSD(Valuta.calculateNOKToDollar(30));
+        USD.setUSD(Valuta.calc("NOK", "USD", 30));
         JSONParser parser = new JSONParser();
         double valuta1;
-        double valuta2;
-        try {
+		try {
 
             Object obj = parser.parse(new FileReader("valuta.json"));
 
@@ -98,8 +77,7 @@ public class JSONTest {
             pw.close();
 
             valuta1 = (double) jsonObject.get("valuta1amount");
-            valuta2 = (double) jsonObject.get("valuta2amount");
-            System.out.println(valuta1);
+			System.out.println(valuta1);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -99,7 +99,8 @@ public class ValutaService {
   @Path("/{valuta}")
   @Produces(MediaType.TEXT_PLAIN)
   public double calculateNOKToDollar(@PathParam("valuta") int valuta) {
-    return Valuta.calculateNOKToDollar(valuta);
+    //return Valuta.calculateNOKToDollar(valuta);
+    return Valuta.calc("NOK", "USD", valuta);
   }
 
   @GET
