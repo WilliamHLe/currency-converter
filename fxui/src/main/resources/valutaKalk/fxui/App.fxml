@@ -4,6 +4,8 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -20,8 +22,52 @@
       <ComboBox fx:id="combOld" layoutX="218.0" layoutY="78.0" prefHeight="26.0" prefWidth="75.0" promptText="Valuta" />
       <ComboBox fx:id="combNew" layoutX="449.0" layoutY="78.0" prefHeight="26.0" prefWidth="98.0" promptText="Ny Valuta" />
       <Label fx:id="errorTxt" layoutX="69.0" layoutY="171.0" prefHeight="30.0" prefWidth="485.0" />
-      <Button fx:id="changeBtn" layoutX="275.0" layoutY="110.0" mnemonicParsing="false" onAction="#change" text="&lt;-&gt;" />
       <Button fx:id="saveBtn" layoutX="493.0" layoutY="129.0" mnemonicParsing="false" onAction="#save" text="Lagre" />
-      <Button fx:id="loadBtn" layoutX="493.0" layoutY="158.0" mnemonicParsing="false" onAction="#load" text="Gjenoppta" />
+      <Button fx:id="loadBtn" layoutX="493.0" layoutY="174.0" mnemonicParsing="false" onAction="#load" text="Gjenoppta" />
+      <AnchorPane fx:id="showCurrency" layoutX="69.0" layoutY="246.0" prefHeight="123.0" prefWidth="503.0">
+         <children>
+            <Label fx:id="euroLabel" layoutX="27.0" layoutY="30.0" text="EUR 1 Euro: 10.16 " />
+            <ImageView fx:id="euroPicture" fitHeight="26.0" fitWidth="26.0" layoutX="1.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pictures/euro.PNG" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="dollarPicture" fitHeight="26.0" fitWidth="26.0" layoutX="1.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pictures/usd.PNG" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="pundPicture" fitHeight="26.0" fitWidth="26.0" layoutX="1.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pictures/pund.PNG" />
+               </image>
+            </ImageView>
+            <Label fx:id="dollarLabel" layoutX="27.0" layoutY="64.0" text="USD 1 Amerikanske Dollar: 9.12 " />
+            <Label fx:id="pundLabel" layoutX="27.0" layoutY="97.0" text="GBP 1 Britisk Pund: 11.78" />
+            <ImageView fx:id="dkPicture" fitHeight="26.0" fitWidth="26.0" layoutX="252.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pictures/dk.PNG" />
+               </image>
+            </ImageView>
+            <Label fx:id="dkLabel" layoutX="277.0" layoutY="31.0" text="DKK 100 Danske Kroner: 135.92 " />
+            <ImageView fx:id="sekPicture" fitHeight="26.0" fitWidth="26.0" layoutX="252.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pictures/sv.PNG" />
+               </image>
+            </ImageView>
+            <Label fx:id="sekLabel" layoutX="277.0" layoutY="64.0" text="SEK 100 Svenske Kroner: 94.66" />
+            <ImageView fx:id="zlotyPicture" fitHeight="26.0" fitWidth="26.0" layoutX="252.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pictures/pln.PNG" />
+               </image>
+            </ImageView>
+            <Label fx:id="zlotyLabel" layoutX="277.0" layoutY="97.0" text="PLN 100 Polske Zloty: 237.69 " />
+            <Label fx:id="showCurrencyHead" layoutX="1.0" text="Noen utvalgte valutakurser konvertert til norske kroner">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
