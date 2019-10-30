@@ -2,7 +2,6 @@ package valutaKalk.core;
 
 import org.json.simple.JSONObject;
 
-import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -19,14 +18,13 @@ public class AppIO implements AppIOInterface {
     public static double valuta2amount;
 
     //En JSON-fil opprettes og det blir skrevet inn data
-    public JSONObject saveJSON(String nok, String result, double old, double ny) throws IOException{
+    public void saveJSON(String nok, String result, double old, double ny) throws IOException{
         JSONObject obj = JSON.ValtutaJSON(nok, result, old, ny);
 
         PrintWriter pw = new PrintWriter("valuta.json");
         pw.write(obj.toJSONString());
         pw.flush();
         pw.close();
-        return null;
     }
 
     public void loadJSON() throws IOException, ParseException {

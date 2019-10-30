@@ -1,25 +1,20 @@
 package valutaKalk.fxui;
 
-import java.io.File;
-import java.io.IOException;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import valutaKalk.core.Valuta;
-import valutaKalk.core.AppIO;
-import valutaKalk.core.ValutaObjectLoader;
-import valutaKalk.core.JSON;
-import org.json.simple.parser.*;
-import org.json.simple.JSONArray;
-import java.io.PrintWriter;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import valutaKalk.core.AppIO;
+import valutaKalk.core.Valuta;
+
+import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
+import java.io.IOException;
 
 
 public class ValutakalkulatorController {
@@ -33,10 +28,7 @@ public class ValutakalkulatorController {
 
 	private AppIO io = new AppIO();
 
-		public Button saveBtn;
-		public Button loadBtn;
-		public Button button;
-        double utValuta;
+        private double utValuta;
 		JSONObject obj = new JSONObject();
 
 	@FXML
@@ -60,7 +52,7 @@ public class ValutakalkulatorController {
 		//Sørger for at reglene opprettholdes og at UI-et viser kalkulasjonene til Valuta.calc()
 		errorTxt.setText("");
 		try {
-			double innValuta = Double.valueOf(NOKInpField.getText());
+			double innValuta = Double.parseDouble(NOKInpField.getText());
             utValuta = Valuta.calc(combOld.getValue(),combNew.getValue(),innValuta);
 			if(innValuta <= 0 || Valuta.error == 1){
 				Valuta.error = 1;
@@ -73,7 +65,7 @@ public class ValutakalkulatorController {
 			}
 		}
 		catch(Exception e){
-			errorTxt.setText(errorTxt.getText() + "Vennligst velg to gyldige og forskjellige valuta");
+			errorTxt.setText(errorTxt.getText() + "Velg to gyldige og forskjellige valuta");
 		}
 	}
 
