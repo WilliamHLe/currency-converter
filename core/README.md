@@ -15,4 +15,4 @@ User stories:
 This is a screenshot of how the calculator is suppose to look:
 
 
-![alt text](https://scontent-arn2-1.xx.fbcdn.net/v/t1.15752-9/69760706_2364887796930332_4509731135567167488_n.png?_nc_cat=101&_nc_oc=AQmT-xczz9DJjRYcKGX-0lvvJkTdnCGlL1ANvyqG2v52xDtCu1X1szSOlfoPmNkbjSVni2GWHii6CjL3TnhGm8zH&_nc_ht=scontent-arn2-1.xx&oh=fbbcf4fca08e5ffd5273c0c8c4887880&oe=5E072927)
+![alt text](https://www.messenger.com/t/2966684333405874)
