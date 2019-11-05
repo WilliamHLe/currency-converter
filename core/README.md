@@ -14,5 +14,5 @@ User stories:
 
 This is a screenshot of how the calculator is suppose to look:
 
+C:\Users\Malin Holte\IdeaProjects\gr1921\kalk.png
 
-![alt text](https://www.messenger.com/t/2966684333405874)
