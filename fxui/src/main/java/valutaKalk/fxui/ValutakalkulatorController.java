@@ -29,7 +29,6 @@ public class ValutakalkulatorController {
 	private AppIO io = new AppIO();
 
         private double utValuta;
-		JSONObject obj = new JSONObject();
 
 	@FXML
 	public void initialize() {
@@ -65,6 +64,7 @@ public class ValutakalkulatorController {
 			}
 		}
 		catch(Exception e){
+			System.out.println(e);
 			errorTxt.setText(errorTxt.getText() + "Velg to gyldige og forskjellige valuta");
 		}
 	}

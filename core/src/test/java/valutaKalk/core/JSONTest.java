@@ -16,20 +16,18 @@ import static org.junit.Assert.assertEquals;
 public class JSONTest {
 
     private Valuta USD;
-    private Valuta NOK;
     private AppIO lagre = new AppIO();
 
     @Before
     public void setUp() {
         USD = new Valuta();
-        NOK = new Valuta();
 
     }
 
 	@Test
 	public void testJSON() {
 		JSONObject obj;
-		obj = JSON.ValtutaJSON("NOK","USD",50.0,5.75);
+		obj = JSON.ValutaJSON("NOK","USD",50.0,5.75);
 		Assert.assertEquals("{\"valuta1amount\":50.0,\"valuta1\":\"NOK\",\"valuta2\":\"USD\",\"valuta2amount\":5.75}",JSONObject.toJSONString(obj));
 	}
 
@@ -40,7 +38,6 @@ public class JSONTest {
 
 	@Test
 	public void testSaveAndLoad() {
-		//double ny = Valuta.calc("NOK", "USD", 50);
 		try {
 			lagre.saveJSON("NOK", "USD", 50, 5.75);
 		} catch (IOException e) {
@@ -61,12 +58,13 @@ public class JSONTest {
 
     @Test
     public void testRestAPI() {
-        NOK.setNOK(30);
-        USD.setUSD(Valuta.calc("NOK", "USD", 30));
-        JSONParser parser = new JSONParser();
-        double valuta1;
 		try {
 
+			Valuta.setNOK(30);
+			Valuta.setUSD(30);
+			double ny = Valuta.calc("NOK", "USD", Valuta.getUSD());
+			lagre.saveJSON("NOK", "USD", Valuta.getNOK(), ny);
+			JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader("valuta.json"));
 
             JSONObject jsonObject = (JSONObject) obj;
@@ -75,9 +73,8 @@ public class JSONTest {
             pw.write(((JSONObject) obj).toJSONString());
             pw.flush();
             pw.close();
-
-            valuta1 = (double) jsonObject.get("valuta1amount");
-			System.out.println(valuta1);
+            double valuta2 = (double) jsonObject.get("valuta2amount");
+			Assert.assertEquals(ny, valuta2, 0);
 
         } catch (Exception e) {
             e.printStackTrace();

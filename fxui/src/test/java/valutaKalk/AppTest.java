@@ -5,6 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 import valutaKalk.core.AppIO;
 import valutaKalk.core.Valuta;
+import valutaKalk.fxui.ValutakalkulatorController;
+import valutaKalk.restserver.ValutaConfig;
 
 import java.io.IOException;
 
@@ -14,6 +16,7 @@ public class AppTest {
 
 	private Valuta USD;
 	private Valuta NOK;
+	private ValutakalkulatorController Main;
 	private AppIO lagre = new AppIO();
 
 
@@ -21,6 +24,8 @@ public class AppTest {
 	public void setUp() {
 		USD = new Valuta();
 		NOK = new Valuta();
+		Main = new ValutakalkulatorController();
+
 		//Setter opp valutaer for testing
 
 	}

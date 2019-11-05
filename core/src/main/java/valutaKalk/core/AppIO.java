@@ -19,7 +19,7 @@ public class AppIO implements AppIOInterface {
 
     //En JSON-fil opprettes og det blir skrevet inn data
     public void saveJSON(String nok, String result, double old, double ny) throws IOException{
-        JSONObject obj = JSON.ValtutaJSON(nok, result, old, ny);
+        JSONObject obj = JSON.ValutaJSON(nok, result, old, ny);
 
         PrintWriter pw = new PrintWriter("valuta.json");
         pw.write(obj.toJSONString());
