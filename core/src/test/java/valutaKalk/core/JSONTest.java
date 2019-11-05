@@ -59,20 +59,18 @@ public class JSONTest {
     @Test
     public void testRestAPI() {
 		try {
-
 			Valuta.setNOK(30);
-			Valuta.setUSD(30);
-			double ny = Valuta.calc("NOK", "USD", Valuta.getUSD());
+			double ny = Valuta.calc("NOK", "USD", Valuta.getNOK());
 			lagre.saveJSON("NOK", "USD", Valuta.getNOK(), ny);
+
 			JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader("valuta.json"));
-
             JSONObject jsonObject = (JSONObject) obj;
-
             PrintWriter pw = new PrintWriter("valuta.json");
             pw.write(((JSONObject) obj).toJSONString());
             pw.flush();
             pw.close();
+
             double valuta2 = (double) jsonObject.get("valuta2amount");
 			Assert.assertEquals(ny, valuta2, 0);
 

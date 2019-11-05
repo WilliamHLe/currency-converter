@@ -64,7 +64,6 @@ public class ValutakalkulatorController {
 			}
 		}
 		catch(Exception e){
-			System.out.println(e);
 			errorTxt.setText(errorTxt.getText() + "Velg to gyldige og forskjellige valuta");
 		}
 	}
@@ -74,9 +73,9 @@ public class ValutakalkulatorController {
 	    if(combOld.getValue() == null || combNew.getValue() == null) { //Hvis man ikke har valgt to valutaer
             errorTxt.setText("Velg to valutaer.");
         } else {
-	        String Old = combOld.getValue();
-            combOld.setValue(combNew.getValue());
-            combNew.setValue(Old);
+	    	io.change(combOld.getValue(), combNew.getValue());
+            combOld.setValue(io.old);
+            combNew.setValue(io.ny);
             calculate();
         }
     }

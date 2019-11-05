@@ -70,6 +70,17 @@ public class AppTest {
 			e.printStackTrace();
 		}
 	}
+
+	@Test
+	//Tester change-knappen
+	public void testChange(){
+		String old = "NOK";
+		String ny = "USD";
+		lagre.change(old, ny);
+		assertEquals(old, lagre.ny);
+		assertEquals(ny, lagre.old);
+
+	}
 }
 
 
