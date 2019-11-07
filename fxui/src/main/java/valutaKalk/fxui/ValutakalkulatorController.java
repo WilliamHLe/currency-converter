@@ -69,6 +69,7 @@ public class ValutakalkulatorController {
 	}
 
 	//Funksjon som lar deg bytte mellom de to valgte valutaene
+	//Denne bruker da en metode i AppIO som utgangspunkt
 	public void change() {
 	    if(combOld.getValue() == null || combNew.getValue() == null) { //Hvis man ikke har valgt to valutaer
             errorTxt.setText("Velg to valutaer.");
