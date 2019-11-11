@@ -1,76 +1,40 @@
 package valutaKalk.core;
 
-import java.io.BufferedReader;
-import java.io.File;
+import org.json.simple.JSONObject;
+
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Scanner;
+
 
 public class AppIO implements AppIOInterface {
 
-	@Override
-	public void save(String filename, Valuta nok, Valuta result, String old, String ny) throws IOException {
-		PrintWriter writer = new PrintWriter(filename);
+    public static String valuta1;
+    public static String valuta2;
+    public static double valuta1amount;
+    public static double valuta2amount;
 
-		String s = nok.getNOK() + " " + result.getNOK() + " " + nok.getName() + " " + result.getName();
+    //En JSON-fil opprettes og det blir skrevet inn data
+    public void saveJSON(String nok, String result, double old, double ny) throws IOException{
+        JSONObject obj = JSON.ValtutaJSON(nok, result, old, ny);
 
-		writer.print(s);
+        PrintWriter pw = new PrintWriter("valuta.json");
+        pw.write(obj.toJSONString());
+        pw.flush();
+        pw.close();
+    }
 
-		writer.flush();
-		writer.close();
-
-		FileReader fileReader =
-				new FileReader(filename);
-		BufferedReader bufferedReader =
-				new BufferedReader(fileReader);
-
-		while ((s = bufferedReader.readLine()) != null) {
-			System.out.println(s);
-		}
-
-		// Always close files.
-		bufferedReader.close();
-
-	}
-
-	@Override
-	public ValutaObjectLoader load(String filename) throws IOException {
-
-		Scanner scanner = new Scanner(new File(filename));
-
-		String valuta[] = scanner.nextLine().split(" ");
-		String fraValuta_string = valuta[0];
-		String tilValuta_string = valuta[1];
-		String fraValuta_name = valuta[2];
-		String tilValuta_name = valuta[3];
-
-
-
-		double fraValuta_verdi = Double.parseDouble(fraValuta_string);
-		double tilValuta_verdi = Double.parseDouble(tilValuta_string);
-
-
-
-		scanner.close();
-
-
-		Valuta gammel = new Valuta();
-		gammel.setNOK(fraValuta_verdi);
-		gammel.setName(fraValuta_name);
-
-		Valuta ny = new Valuta();
-		ny.setNOK(tilValuta_verdi);
-		ny.setName(tilValuta_name);
-
-		ValutaObjectLoader loader = new ValutaObjectLoader();
-		loader.ny = ny;
-		loader.gammel = gammel;
-
-		return loader;
-
-
-
-	}
+    public void loadJSON() throws IOException, ParseException {
+        //Det leses fra JSON-filen og informasjonen blir hentet
+        Object obj = new JSONParser().parse(new FileReader("valuta.json"));
+        JSONObject info = (JSONObject) obj;
+        valuta1 = (String) info.get("valuta1");
+        valuta2 = (String) info.get("valuta2");
+        valuta1amount = (double) info.get("valuta1amount");
+        valuta2amount = (double) info.get("valuta2amount");
+    }
 
 }
