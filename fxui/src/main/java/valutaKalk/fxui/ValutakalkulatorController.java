@@ -7,13 +7,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import valutaKalk.core.Valuta;
 import valutaKalk.core.AppIO;
+import valutaKalk.core.ValutaObjectLoader;
+import valutaKalk.core.JSON;
 import org.json.simple.parser.*;
+import org.json.simple.JSONArray;
+import java.io.PrintWriter;
 import org.json.simple.JSONObject;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 
 
 public class ValutakalkulatorController {
@@ -40,6 +46,8 @@ public class ValutakalkulatorController {
 	@FXML private ComboBox<String> combOld, combNew;
 	@FXML private Label errorTxt;
 
+        double utValuta;
+		JSONObject obj = new JSONObject();
 	private AppIO io = new AppIO();
 
         private double utValuta;
@@ -83,7 +91,6 @@ public class ValutakalkulatorController {
 	}
 
 	//Funksjon som lar deg bytte mellom de to valgte valutaene
-	//Denne bruker da en metode i AppIO som utgangspunkt
 	public void change() {
 	    if(combOld.getValue() == null || combNew.getValue() == null) { //Hvis man ikke har valgt to valutaer
             errorTxt.setText("Velg to valutaer.");
@@ -97,23 +104,18 @@ public class ValutakalkulatorController {
 
 
 	public void save() {
-		try {
-			double innValuta = Double.parseDouble(NOKInpField.getText());
-			utValuta = Valuta.calc(combOld.getValue(),combNew.getValue(),innValuta);
-			if(Valuta.error == 1){
-				//Dersom brukeren prøver å lagre en ugyldig konvertering
-				errorTxt.setText("Noe gikk galt ved skriving til fil");
-			}
-			else {
-				//Verdiene i de forskjellige input-enhetene bestemmes og sendes videre til lagring
-				double savedInn = Double.parseDouble(NOKInpField.getText());
-				double savedUt = utValuta;
-				io.saveJSON(combOld.getValue(),combNew.getValue(),savedInn,savedUt);
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
+		double innValuta = Double.parseDouble(NOKInpField.getText());
+		utValuta = Valuta.calc(combOld.getValue(),combNew.getValue(),innValuta);
+		if(Valuta.error == 1){
+			//Dersom brukeren prøver å lagre en ugyldig konvertering
 			errorTxt.setText("Noe gikk galt ved skriving til fil");
+		}
+		else {
+			//Verdiene i de forskjellige input-enhetene bestemmes og sendes videre til lagring
+			double savedInn = Double.parseDouble(NOKInpField.getText());
+			double savedUt = utValuta;
+			obj = JSON.ValtutaJSON(combOld.getValue(),combNew.getValue(),savedInn,savedUt); //Setter til JSON objekt
+			ValutaService.put(obj);//Gjør en HTTP PUT forespørsel
 		}
 	}
 
@@ -121,19 +123,36 @@ public class ValutakalkulatorController {
 
 	public void load() throws Exception{
 		//Hentingen av data fra JSON-filen og viser dette i UI-et
-		try {
-			io.loadJSON();
-			String stringInn = AppIO.valuta1amount + " " + AppIO.valuta1;
-
-			String stringUt = AppIO.valuta2amount + " " + AppIO.valuta2;
-			errorTxt.setText(stringInn + "\n" + stringUt);
-
-
-
-		} catch (IOException e){
-			e.printStackTrace();
-			errorTxt.setText("Filnavnet finnes ikke");
+		JSONArray info = ValutaService.load();
+		StringBuilder stringInn = new StringBuilder();
+		StringBuilder stringUt = new StringBuilder();
+		int j = 1;
+		int len = info.size()-1;
+		//Går gjennom JSON arrayet og finner de fire nyeste utregningene
+		for(int i = len;i>=0;i--) {
+			if (j >= 5) { //Hvis j er høyere eller lik 5, stopp loopen
+				break;
+			}
+			//Lager strings med innholdet og prøver å formatere slik at hvert objekt havner på samme linje
+			JSONObject o = (JSONObject)info.get(i);
+			String tempInn = o.get("valuta1") + " " + o.get("valuta1amount")+", \t";
+			String tempUt = o.get("valuta2") + " " + o.get("valuta2amount")+", \t";
+			if (tempInn.length()<11) {
+				tempInn += "\t";
+			}
+			if (tempUt.length()<11){
+				tempUt += "\t";
+			}
+			stringInn.append(tempInn);
+			stringUt.append(tempUt);
+			j++;
 		}
+		errorTxt.setText(stringInn + "\n" + stringUt);
+	}
+
+	//Sletter fra json arrayet
+	public void delete() {
+		ValutaService.delete();
 	}
 
 }
