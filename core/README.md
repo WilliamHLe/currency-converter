@@ -11,6 +11,7 @@ User stories:
 *  As a user, I want a switch button, so I can switch the currencies, because it's faster then choosing both the currencies again separately.
 *  As a user, I want a button that erases the fields, so that I can start all over.
 *  As a user, I want a button that can change the currencies, so that they can be up-to-date.
+*  As a user, I want to get more than only the last calculation when I load the previous one.
 
 This is a screenshot of how the calculator is suppose to look:
 
