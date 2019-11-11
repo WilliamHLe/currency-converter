@@ -79,7 +79,7 @@ public class Valuta {
                 return result;
             }
             else {
-				File f = new File(Valuta.class.getResource("/valutaKalk/fxui/valutalist.json").getFile()); //Henter json fil fra fxui pakken
+				File f = new File(Valuta.class.getResource("/valutalist.json").getFile()); //Henter json fil fra fxui pakken
                 Object obj = new JSONParser().parse(new FileReader(f));
                 JSONObject json = (JSONObject) obj;
                 //Finner riktig kurs og regner ut

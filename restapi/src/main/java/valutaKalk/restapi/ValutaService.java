@@ -29,7 +29,7 @@ public class ValutaService {
   public JSONObject calculate(@PathParam("valuta1") String valuta1,@PathParam("valuta2") String valuta2, @PathParam("antall") double antall) {
     try {
       result = Valuta.calc(valuta1,valuta2,antall); //Regner ut
-      test = JSON.ValtutaJSON(valuta1,valuta2,antall,result); //Setter til JSON objekt
+      test = JSON.ValutaJSON(valuta1,valuta2,antall,result); //Setter til JSON objekt
 
       return test;
     } catch (Exception e) {

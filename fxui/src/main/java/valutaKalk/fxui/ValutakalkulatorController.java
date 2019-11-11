@@ -7,14 +7,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import valutaKalk.core.Valuta;
 import valutaKalk.core.AppIO;
-import valutaKalk.core.ValutaObjectLoader;
 import valutaKalk.core.JSON;
 import org.json.simple.parser.*;
 import org.json.simple.JSONArray;
 import java.io.PrintWriter;
 import org.json.simple.JSONObject;
+import valutaKalk.restapi.ValutaService;
+
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -50,7 +53,6 @@ public class ValutakalkulatorController {
 		JSONObject obj = new JSONObject();
 	private AppIO io = new AppIO();
 
-        private double utValuta;
 
 	@FXML
 	public void initialize() {
@@ -114,7 +116,7 @@ public class ValutakalkulatorController {
 			//Verdiene i de forskjellige input-enhetene bestemmes og sendes videre til lagring
 			double savedInn = Double.parseDouble(NOKInpField.getText());
 			double savedUt = utValuta;
-			obj = JSON.ValtutaJSON(combOld.getValue(),combNew.getValue(),savedInn,savedUt); //Setter til JSON objekt
+			obj = JSON.ValutaJSON(combOld.getValue(),combNew.getValue(),savedInn,savedUt); //Setter til JSON objekt
 			ValutaService.put(obj);//Gjør en HTTP PUT forespørsel
 		}
 	}

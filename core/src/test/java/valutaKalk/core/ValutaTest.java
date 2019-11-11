@@ -18,6 +18,6 @@ public class ValutaTest {
         Assert.assertEquals(434.0,USDNOK, 0.5);
         Assert.assertEquals(44.0,USDEUR, 0.5);
         Assert.assertEquals(499.5,EURONOK, 0.5);
-        Assert.assertEquals(55.50000000000001,EUROUSD, 0.5);
+        Assert.assertEquals(55.50,EUROUSD, 0.5);
     }
 }

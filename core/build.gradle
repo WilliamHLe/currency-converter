@@ -40,6 +40,7 @@ tasks.withType(com.github.spotbugs.SpotBugsTask) {
 dependencies {
     // persistens
     // api means that those consuming our library 'inherits' this as a compile dependency
+    testCompile project(":restapi")
     api "com.fasterxml.jackson.core:jackson-databind:${depVersions.jackson}"
 
     compile "com.googlecode.json-simple:json-simple:1.1.1"
