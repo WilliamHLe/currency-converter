@@ -86,6 +86,7 @@ public class Valuta {
                 JSONObject jsonVal1 = (JSONObject) json.get(valuta1);
                 double rate = (double) jsonVal1.get(valuta2);
                 result = antall * rate;
+                result = Math.round(result*100.0)/100.0;
                 error = 0;
                 return result;
             }

@@ -2,9 +2,11 @@ package valutaKalk.restapi;
 
 import javax.ws.rs.*;
 
+import org.json.simple.JSONArray;
 import org.json.simple.parser.*;
 
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.PrintWriter;
 import org.json.simple.JSONObject;
 import javax.ws.rs.core.MediaType;
@@ -20,7 +22,7 @@ public class ValutaService {
   double result;
   JSONObject test = new JSONObject();
 
-  //API som regner ut mellom valutaene, og viser resultatet på siden som et JSON objekt
+  //API som regner ut mellom valutaene
   @GET
   @Path("/{valuta1}.{valuta2}.{antall}") //Parameterne som er nødvendig. valuta1 er hvilken valuta som skal regnes fra, valuta2 er valuta som skal regnes til og antall hvor mya av valuta1 det skal regnes med
   @Produces(MediaType.APPLICATION_JSON)
@@ -36,17 +38,52 @@ public class ValutaService {
 
   }
 
-  //API som regner ut og lagrer til JSON fil, og viser resulatet på siden
+  //API lagrer til JSON fil
   @POST
-  @Path("/") //Parameterne som er nødvendig. valuta1 er hvilken valuta som skal regnes fra, valuta2 er valuta som skal regnes til og antall hvor mya av valuta1 det skal regnes med
+  @Path("/")
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   public static void save(JSONObject json) {
     try {
-      //JSONObject jon = new JSONObject();
-      //jon = JSON.ValtutaJSON(valuta1,valuta2,antall,result); //Setter til JSON objekt
+      JSONArray jsonArray = new JSONArray();
+      jsonArray.add(json);
       PrintWriter pw = new PrintWriter("valuta.json"); //Skriver til fil
-      pw.write(json.toJSONString());
+      pw.write(jsonArray.toJSONString());//Overskriver det som ligger i filen
+      pw.flush();
+      pw.close();
+    } catch (Exception e) {
+    }
+  }
+
+  //API som legger til nytt element i JSON fil
+  @PUT
+  @Path("/")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
+  public static void put(JSONObject json) {
+    try {
+      Object obj = new JSONParser().parse(new FileReader("valuta.json"));
+      JSONArray jsonArray = (JSONArray) obj;
+      jsonArray.add(json); //Legger til nytt element i arrayet
+      //FileWriter fileWriter = new FileWriter("valuta.json", true);
+      PrintWriter pw = new PrintWriter("valuta.json"); //Skriver til fil
+      pw.write(jsonArray.toJSONString());
+      pw.flush();
+      pw.close();
+    } catch (Exception e) {
+    }
+  }
+
+  //API som fjerner fra JSON fil
+  @DELETE
+  @Path("/")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
+  public static void delete() {
+    try {
+      JSONArray jsonArray = new JSONArray();
+      PrintWriter pw = new PrintWriter("valuta.json"); //Skriver til fil
+      pw.write(jsonArray.toJSONString());
       pw.flush();
       pw.close();
     } catch (Exception e) {
@@ -58,11 +95,11 @@ public class ValutaService {
   @Path("/")
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  public static JSONObject load() {
-    JSONObject json = new JSONObject();
+  public static JSONArray load() {
+    JSONArray json = new JSONArray();
     try {
       Object obj = new JSONParser().parse(new FileReader("valuta.json"));
-      json = (JSONObject) obj;
+      json = (JSONArray) obj;
       return json;
     } catch (Exception e) {
       return json;

@@ -24,6 +24,7 @@
       <Label fx:id="errorTxt" layoutX="69.0" layoutY="171.0" prefHeight="30.0" prefWidth="485.0" />
       <Button fx:id="saveBtn" layoutX="493.0" layoutY="129.0" mnemonicParsing="false" onAction="#save" text="Lagre" />
       <Button fx:id="loadBtn" layoutX="493.0" layoutY="174.0" mnemonicParsing="false" onAction="#load" text="Gjenoppta" />
+      <Button fx:id="clearBtn" layoutX="493.0" layoutY="219.0" mnemonicParsing="false" onAction="#delete" text="Slett" />
       <AnchorPane fx:id="showCurrency" layoutX="69.0" layoutY="246.0" prefHeight="123.0" prefWidth="503.0">
          <children>
             <Label fx:id="euroLabel" layoutX="27.0" layoutY="30.0" text="EUR 1 Euro: 10.16 " />
