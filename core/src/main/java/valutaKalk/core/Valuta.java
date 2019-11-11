@@ -1,9 +1,19 @@
 package valutaKalk.core;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.InputStream;
+import java.net.URL;
+
 public class Valuta {
 
 
+
 	private String valutaType;
+    public static int error;
 
 	public Valuta() {
 
@@ -17,10 +27,6 @@ public class Valuta {
 		return valutaType;
 	}
 
-	public void setName(String name) {
-		this.valutaType = name;
-	}
-
 	@Override
 	public String toString() {
 		return this.valutaType;
@@ -28,7 +34,6 @@ public class Valuta {
 
 	private double NOK;
 	private static double NOKusd = 0.115;
-	private static double NOKeur = 0.102;
 
 
 	public void setNOK(double NOK) {
@@ -38,16 +43,9 @@ public class Valuta {
 		this.NOK = NOK;
 	}
 
-	public double getNOK() {
-		return NOK;
-	}
-
 	public static double calculateNOKToDollar(double inpNOK) {
+		double NOKusd = 0.115;
 		return inpNOK * NOKusd;
-	}
-
-	public static double calculateNOKToEuro(double inpNOK) {
-		return inpNOK * NOKeur;
 	}
 
 	private double USD;
@@ -62,69 +60,40 @@ public class Valuta {
 		this.USD = USD;
 	}
 
-	public double getUSD() {
-		return USD;
-	}
-
 	public static double calculateDollarToNOK(double inpUSD) {
+		double USDnok = 8.68;
 		return inpUSD * USDnok;
 	}
 
 	public static double calculateDollarToEuro(double inpUSD) {
+		double USDeur = 0.88;
 		return inpUSD * USDeur;
 	}
 
-	private double EURO;
-	private static double EUROnok = 9.99;
-	private static double EUROusd = 1.11;
-
-
-	public void setEURO(double EURO) {
-		if (EURO < 0) {
-			throw new IllegalArgumentException("Beløpet må være mer enn 0.");
-		}
-	}
-
-	public double getEURO() {
-		return EURO;
-	}
-
-	public static double calculateEUROToNOK(double inpEURO) {
-		return inpEURO * EUROnok;
-	}
-
-	public static double calculateEUROToUSD(double inpEURO) {
-		return inpEURO * EUROusd;
-	}
-
-
     static double result;
-    public static double calc(String valuta1,String valuta2,double antall) {
+	//calc sjekker hvilken valutatype den skal konvertere fra og til og konverterer med riktig kurs deretter.
+    public static double calc(String valuta1,String valuta2,double antall,String loc) {
         try {
-            if (valuta1.equals("NOK")) {
-                if (valuta2.equals("USD")) {
-                    result = calculateNOKToDollar(antall);
-                } else if (valuta2.equals("EURO") || valuta2.equals("EUR")) {
-                    result = calculateNOKToEuro(antall);
-                }
-            } else if (valuta1.equals("USD")) {
-                if (valuta2.equals("NOK")) {
-                    result = calculateDollarToNOK(antall);
-                } else if (valuta2.equals("EURO") || valuta2.equals("EUR")) {
-                    result = calculateDollarToEuro(antall);
-                }
-            } else if (valuta1.equals("EURO") || valuta1.equals("EUR")) {
-                if (valuta2.equals("NOK")) {
-                    result = calculateEUROToNOK(antall);
-                } else if (valuta2.equals("USD")) {
-                    result = calculateEUROToUSD(antall);
-                }
+            if(valuta1.equals(valuta2) || antall <= 0){
+                error = 1;
+                return result;
             }
-            return result;
+            else {
+				File f = new File(Valuta.class.getResource(loc).getFile()); //Henter json fil fra fxui pakken
+                Object obj = new JSONParser().parse(new FileReader(f));
+                JSONObject json = (JSONObject) obj;
+                //Finner riktig kurs og regner ut
+                JSONObject jsonVal1 = (JSONObject) json.get(valuta1);
+                double rate = (double) jsonVal1.get(valuta2);
+                result = antall * rate;
+                result = Math.round(result*100.0)/100.0;
+                error = 0;
+                return result;
+            }
         } catch (Exception e) {
-            return result;
+            error = 1;
+            System.out.println("hmm");
+            throw new IllegalArgumentException("Beløpet må være mer enn 0.");
         }
     }
-
-
 }
