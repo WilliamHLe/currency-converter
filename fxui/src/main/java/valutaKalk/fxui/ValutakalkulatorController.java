@@ -1,25 +1,19 @@
 package valutaKalk.fxui;
 
 import java.io.File;
-import java.io.IOException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import valutaKalk.core.Valuta;
-import valutaKalk.core.AppIO;
-import valutaKalk.core.ValutaObjectLoader;
+//import valutaKalk.core.ValutaObjectLoader;
 import valutaKalk.core.JSON;
 import org.json.simple.parser.*;
-import org.json.simple.JSONArray;
-import java.io.PrintWriter;
 import org.json.simple.JSONObject;
+import valutaKalk.restapi.ValutaService;
+
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 
 
 public class ValutakalkulatorController {
@@ -31,11 +25,6 @@ public class ValutakalkulatorController {
 	@FXML private ComboBox<String> combOld, combNew;
 	@FXML private Label errorTxt;
 
-	private AppIO io = new AppIO();
-
-		public Button saveBtn;
-		public Button loadBtn;
-		public Button button;
         double utValuta;
 		JSONObject obj = new JSONObject();
 
@@ -91,7 +80,7 @@ public class ValutakalkulatorController {
 
 
 	public void save() {
-		try {
+		//try {
 			double innValuta = Double.parseDouble(NOKInpField.getText());
 			utValuta = Valuta.calc(combOld.getValue(),combNew.getValue(),innValuta);
 			if(Valuta.error == 1){
@@ -102,32 +91,34 @@ public class ValutakalkulatorController {
 				//Verdiene i de forskjellige input-enhetene bestemmes og sendes videre til lagring
 				double savedInn = Double.parseDouble(NOKInpField.getText());
 				double savedUt = utValuta;
-				io.saveJSON(combOld.getValue(),combNew.getValue(),savedInn,savedUt);
+				obj = JSON.ValtutaJSON(combOld.getValue(),combNew.getValue(),savedInn,savedUt); //Setter til JSON objekt
+				ValutaService.save(obj);
+				//io.saveJSON(combOld.getValue(),combNew.getValue(),savedInn,savedUt);
 			}
 
-		} catch (IOException e) {
-			e.printStackTrace();
-			errorTxt.setText("Noe gikk galt ved skriving til fil");
-		}
+		//} catch (IOException e) {
+		//	e.printStackTrace();
+		//	errorTxt.setText("Noe gikk galt ved skriving til fil");
+		//}
 	}
 
 
 
 	public void load() throws Exception{
 		//Hentingen av data fra JSON-filen og viser dette i UI-et
-		try {
-			io.loadJSON();
-			String stringInn = AppIO.valuta1amount + " " + AppIO.valuta1;
+		//try {
+			JSONObject info = ValutaService.load();//io.loadJSON();
+			String stringInn = info.get("valuta1") + " " + info.get("valuta1amount");
 
-			String stringUt = AppIO.valuta2amount + " " + AppIO.valuta2;
+			String stringUt = info.get("valuta2") + " " + info.get("valuta2amount");
 			errorTxt.setText(stringInn + "\n" + stringUt);
 
 
 
-		} catch (IOException e){
-			e.printStackTrace();
-			errorTxt.setText("Filnavnet finnes ikke");
-		}
+		//} catch (IOException e){
+		//	e.printStackTrace();
+			//errorTxt.setText("Filnavnet finnes ikke");
+		////
 	}
 
 }

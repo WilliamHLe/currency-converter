@@ -1,5 +1,6 @@
 package valutaKalk.restserver;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -9,6 +10,7 @@ import java.util.logging.Logger;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.json.simple.JSONObject;
 import valutaKalk.restapi.ValutaService;
 
 
@@ -20,6 +22,15 @@ public class ValutaGrizzlyApp {
 		final URI baseUri = (args.length >= 1 ? URI.create(args[0]) : BASE_URI);
 		final ResourceConfig resourceConfig = (args.length >= 2 ? new ValutaConfig() : new ValutaConfig());
 		final HttpServer httpServer = GrizzlyHttpServerFactory.createHttpServer(baseUri, resourceConfig);
+		JSONObject json = new JSONObject();
+		File file = new File("valuta.json");
+		if (file.length() == 0) {
+			json.put("valuta1","USD");
+			json.put("valuta1amount",1);
+			json.put("valuta2","NOK");
+			json.put("valuta2amount",8.68);
+			ValutaService.save(json);
+		}
 		if (waitSecondsForServer < 0) {
 			return httpServer;
 		}
