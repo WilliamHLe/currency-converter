@@ -75,6 +75,32 @@ To run CheckStyle do the same with the folder CheckStyle.
 *  Stefan Fongen
 
 
+## Diagrams
 
+
+
+### Sequence diagram
+
+
+
+User saves the converted values
+
+<img src="/uploads/ac5cac0a16dbbe3a5d7ad2fd86d16038/Skjermbilde_2019-11-11_kl._12.25.02.png"  width="800">
+
+
+
+### Package diagram
+
+
+
+<img src="/uploads/82397ce7df2b3945c3d634fa1b110054/75573795_3384639871578563_5147716985148145664_n.png"  width="800">
+
+
+
+### Class diagram
+
+
+
+<img src="/uploads/792c9ed06f040c386133d7400c141f03/Skjermbilde_2019-11-11_kl._14.22.34.png"  width="800">
 
 
