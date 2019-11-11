@@ -29,7 +29,6 @@ public class ValutakalkulatorController {
 	private AppIO io = new AppIO();
 
         private double utValuta;
-		JSONObject obj = new JSONObject();
 
 	@FXML
 	public void initialize() {
@@ -70,13 +69,14 @@ public class ValutakalkulatorController {
 	}
 
 	//Funksjon som lar deg bytte mellom de to valgte valutaene
+	//Denne bruker da en metode i AppIO som utgangspunkt
 	public void change() {
 	    if(combOld.getValue() == null || combNew.getValue() == null) { //Hvis man ikke har valgt to valutaer
             errorTxt.setText("Velg to valutaer.");
         } else {
-	        String Old = combOld.getValue();
-            combOld.setValue(combNew.getValue());
-            combNew.setValue(Old);
+	    	io.change(combOld.getValue(), combNew.getValue());
+            combOld.setValue(io.old);
+            combNew.setValue(io.ny);
             calculate();
         }
     }

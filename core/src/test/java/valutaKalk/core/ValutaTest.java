@@ -6,6 +6,7 @@ import org.junit.Assert;
 public class ValutaTest {
 	@Test
     public void testCalc() {
+	    //Tester calc-metoden
         double NOKUSD = Valuta.calc("NOK","USD",50);
         double NOKEURO = Valuta.calc("NOK","EURO",50);
         double USDNOK = Valuta.calc("USD","NOK",50);

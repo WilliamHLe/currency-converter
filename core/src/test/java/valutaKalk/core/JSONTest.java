@@ -4,7 +4,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.FileReader;
@@ -15,32 +14,25 @@ import static org.junit.Assert.assertEquals;
 
 public class JSONTest {
 
-    private Valuta USD;
-    private Valuta NOK;
     private AppIO lagre = new AppIO();
-
-    @Before
-    public void setUp() {
-        USD = new Valuta();
-        NOK = new Valuta();
-
-    }
 
 	@Test
 	public void testJSON() {
+    	//Tester at JSON-filen inneholder riktig informasjon
 		JSONObject obj;
-		obj = JSON.ValtutaJSON("NOK","USD",50.0,5.75);
+		obj = JSON.ValutaJSON("NOK","USD",50.0,5.75);
 		Assert.assertEquals("{\"valuta1amount\":50.0,\"valuta1\":\"NOK\",\"valuta2\":\"USD\",\"valuta2amount\":5.75}",JSONObject.toJSONString(obj));
 	}
 
 	@Test (expected = IllegalArgumentException.class)
+	//Tester at en ikke kan sette USD-verdien til <= 0
 	public void testSetUSDNegative() {
-		USD.setUSD(-50);
+		Valuta.setUSD(-50);
 	}
 
 	@Test
 	public void testSaveAndLoad() {
-		//double ny = Valuta.calc("NOK", "USD", 50);
+    	//Tester selve lagre- og gjenoppta-metoden til JSON-filen
 		try {
 			lagre.saveJSON("NOK", "USD", 50, 5.75);
 		} catch (IOException e) {
@@ -61,23 +53,22 @@ public class JSONTest {
 
     @Test
     public void testRestAPI() {
-        NOK.setNOK(30);
-        USD.setUSD(Valuta.calc("NOK", "USD", 30));
-        JSONParser parser = new JSONParser();
-        double valuta1;
+    	//Tester at REST-API fungerer slik
 		try {
+			Valuta.setNOK(30);
+			double ny = Valuta.calc("NOK", "USD", Valuta.getNOK());
+			lagre.saveJSON("NOK", "USD", Valuta.getNOK(), ny);
 
+			JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader("valuta.json"));
-
             JSONObject jsonObject = (JSONObject) obj;
-
             PrintWriter pw = new PrintWriter("valuta.json");
             pw.write(((JSONObject) obj).toJSONString());
             pw.flush();
             pw.close();
 
-            valuta1 = (double) jsonObject.get("valuta1amount");
-			System.out.println(valuta1);
+            double valuta2 = (double) jsonObject.get("valuta2amount");
+			Assert.assertEquals(ny, valuta2, 0);
 
         } catch (Exception e) {
             e.printStackTrace();

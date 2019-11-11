@@ -16,10 +16,12 @@ public class AppIO implements AppIOInterface {
     public static String valuta2;
     public static double valuta1amount;
     public static double valuta2amount;
+    public String old = "NOK";
+    public String ny = "USD";
 
     //En JSON-fil opprettes og det blir skrevet inn data
     public void saveJSON(String nok, String result, double old, double ny) throws IOException{
-        JSONObject obj = JSON.ValtutaJSON(nok, result, old, ny);
+        JSONObject obj = JSON.ValutaJSON(nok, result, old, ny);
 
         PrintWriter pw = new PrintWriter("valuta.json");
         pw.write(obj.toJSONString());
@@ -37,4 +39,8 @@ public class AppIO implements AppIOInterface {
         valuta2amount = (double) info.get("valuta2amount");
     }
 
+    public void change(String old, String ny){
+        this.old = ny;
+        this.ny = old;
+    }
 }

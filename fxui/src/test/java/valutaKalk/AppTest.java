@@ -1,7 +1,6 @@
 package valutaKalk;
 
 import org.json.simple.parser.ParseException;
-import org.junit.Before;
 import org.junit.Test;
 import valutaKalk.core.AppIO;
 import valutaKalk.core.Valuta;
@@ -11,24 +10,13 @@ import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 
 public class AppTest {
-
-	private Valuta USD;
-	private Valuta NOK;
 	private AppIO lagre = new AppIO();
 
 
-	@Before
-	public void setUp() {
-		USD = new Valuta();
-		NOK = new Valuta();
-		//Setter opp valutaer for testing
-
-	}
-
 	@Test (expected = IllegalArgumentException.class)
 	public void testSetValutaNegative() {
-		USD.setUSD(-50);
-		NOK.setNOK(-50);
+		Valuta.setUSD(-50);
+		Valuta.setNOK(-50);
 		//Sjekker at en ikke kan bruke negative verdier
 	}
 
@@ -64,6 +52,17 @@ public class AppTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Test
+	//Tester change-knappen (jacoco ville av en eller annen grunn ikke vise at vi tester at change-knappen/metoden
+	public void testChange(){
+		String old = lagre.old;
+		String ny = lagre.ny;
+		lagre.change(old, ny);
+		assertEquals(old, lagre.ny);
+		assertEquals(ny, lagre.old);
+
 	}
 }
 
