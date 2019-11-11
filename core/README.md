@@ -15,4 +15,5 @@ User stories:
 This is a screenshot of how the calculator is suppose to look:
 
 
-![Screenshot](kalk.png)
+<img src="/uploads/228e724a9c6087fedbf360fa3bfc07a2/Skjermbilde_2019-11-11_kl._14.26.59.png"  width="800">
+
