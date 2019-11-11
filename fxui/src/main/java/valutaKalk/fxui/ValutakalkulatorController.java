@@ -1,20 +1,19 @@
 package valutaKalk.fxui;
 
+import java.io.File;
+import java.io.IOException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import valutaKalk.core.AppIO;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import valutaKalk.core.Valuta;
-
-import java.io.File;
+import valutaKalk.core.AppIO;
+import org.json.simple.parser.*;
+import org.json.simple.JSONObject;
 import java.io.FileReader;
-import java.io.IOException;
 
 
 public class ValutakalkulatorController {
@@ -22,6 +21,21 @@ public class ValutakalkulatorController {
 	public Button saveBtn;
 	public Button loadBtn;
 	public Button button;
+	public Button change;
+    public AnchorPane showCurrency;
+	public Label euroLabel;
+	public ImageView euroPicture;
+	public ImageView dollarPicture;
+	public ImageView pundPicture;
+	public Label dollarLabel;
+	public Label pundLabel;
+	public ImageView dkPicture;
+	public Label dkLabel;
+	public ImageView sekPicture;
+	public Label sekLabel;
+	public ImageView zlotyPicture;
+	public Label zlotyLabel;
+	public Label showCurrencyHead;
 	@FXML private TextField NOKInpField, dollarInpField;
 	@FXML private ComboBox<String> combOld, combNew;
 	@FXML private Label errorTxt;
@@ -64,7 +78,7 @@ public class ValutakalkulatorController {
 			}
 		}
 		catch(Exception e){
-			errorTxt.setText(errorTxt.getText() + "Velg to gyldige og forskjellige valuta");
+			errorTxt.setText(errorTxt.getText() + "Vennligst velg to gyldige og forskjellige valuta");
 		}
 	}
 
