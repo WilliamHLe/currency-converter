@@ -76,10 +76,11 @@ public class ValutakalkulatorController {
 		errorTxt.setText("");
 		try {
 			double innValuta = Double.parseDouble(NOKInpField.getText());
-            utValuta = Valuta.calc(combOld.getValue(),combNew.getValue(),innValuta);
+			//System.out.println(innValuta);
+            utValuta = Valuta.calc(combOld.getValue().toString(),combNew.getValue().toString(),innValuta,"/valutaKalk/fxui/valutalist.json");
 			if(innValuta <= 0 || Valuta.error == 1){
 				Valuta.error = 1;
-				errorTxt.setText(errorTxt.getText() + "Vennligst velg to gyldige og forskjellige valuta");
+				errorTxt.setText(errorTxt.getText() + "Vennligst velg to gyldige og forskjellige valuta plese");
 			} else {
 				Valuta.error = 0;
 				errorTxt.setText("");
@@ -107,7 +108,7 @@ public class ValutakalkulatorController {
 
 	public void save() {
 		double innValuta = Double.parseDouble(NOKInpField.getText());
-		utValuta = Valuta.calc(combOld.getValue(),combNew.getValue(),innValuta);
+		utValuta = Valuta.calc(combOld.getValue(),combNew.getValue(),innValuta,"/valutaKalk/fxui/valutalist.json");
 		if(Valuta.error == 1){
 			//Dersom brukeren prøver å lagre en ugyldig konvertering
 			errorTxt.setText("Noe gikk galt ved skriving til fil");

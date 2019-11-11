@@ -28,7 +28,7 @@ public class ValutaService {
   @Produces(MediaType.APPLICATION_JSON)
   public JSONObject calculate(@PathParam("valuta1") String valuta1,@PathParam("valuta2") String valuta2, @PathParam("antall") double antall) {
     try {
-      result = Valuta.calc(valuta1,valuta2,antall); //Regner ut
+      result = Valuta.calc(valuta1,valuta2,antall,"/valutaKalk/fxui/valutalist.json"); //Regner ut
       test = JSON.ValutaJSON(valuta1,valuta2,antall,result); //Setter til JSON objekt
 
       return test;

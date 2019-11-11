@@ -72,14 +72,14 @@ public class Valuta {
 
     static double result;
 	//calc sjekker hvilken valutatype den skal konvertere fra og til og konverterer med riktig kurs deretter.
-    public static double calc(String valuta1,String valuta2,double antall) {
+    public static double calc(String valuta1,String valuta2,double antall,String loc) {
         try {
             if(valuta1.equals(valuta2) || antall <= 0){
                 error = 1;
                 return result;
             }
             else {
-				File f = new File(Valuta.class.getResource("/valutalist.json").getFile()); //Henter json fil fra fxui pakken
+				File f = new File(Valuta.class.getResource(loc).getFile()); //Henter json fil fra fxui pakken
                 Object obj = new JSONParser().parse(new FileReader(f));
                 JSONObject json = (JSONObject) obj;
                 //Finner riktig kurs og regner ut
@@ -92,6 +92,7 @@ public class Valuta {
             }
         } catch (Exception e) {
             error = 1;
+            System.out.println("hmm");
             throw new IllegalArgumentException("Beløpet må være mer enn 0.");
         }
     }
